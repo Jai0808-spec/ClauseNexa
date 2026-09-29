@@ -174,3 +174,143 @@ async def upload_contract(file: UploadFile = File(...)):
             status_code=500,
             detail=f"Contract upload failed: {str(exc)}"
         )
+
+        # ---------------------------------------------------------
+# GET /contracts
+# Get all uploaded contracts
+# ---------------------------------------------------------
+
+@router.get("")
+def get_all_contracts():
+
+    try:
+        response = (
+            supabase
+            .table("contracts")
+            .select("*")
+            .order("uploaded_at", desc=True)
+            .execute()
+        )
+
+        return {
+            "contracts": response.data
+        }
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to retrieve contracts: {str(exc)}"
+        )
+
+
+# ---------------------------------------------------------
+# GET /contracts/{contract_id}
+# Get one specific contract
+# ---------------------------------------------------------
+
+@router.get("/{contract_id}")
+def get_contract(contract_id: str):
+
+    try:
+        response = (
+            supabase
+            .table("contracts")
+            .select("*")
+            .eq("id", contract_id)
+            .execute()
+        )
+
+        if not response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Contract not found."
+            )
+
+        return response.data[0]
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to retrieve contract: {str(exc)}"
+        )
+
+    # ---------------------------------------------------------
+# DELETE /contracts/{contract_id}
+# Delete a contract from Storage and Database
+# ---------------------------------------------------------
+
+@router.delete("/{contract_id}")
+def delete_contract(contract_id: str):
+
+    try:
+        # -------------------------------------------------
+        # 1. Find the contract in the database
+        # -------------------------------------------------
+
+        response = (
+            supabase
+            .table("contracts")
+            .select("*")
+            .eq("id", contract_id)
+            .execute()
+        )
+
+        # -------------------------------------------------
+        # 2. Check whether contract exists
+        # -------------------------------------------------
+
+        if not response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Contract not found."
+            )
+
+        contract = response.data[0]
+
+        storage_path = contract.get("storage_path")
+
+
+        # -------------------------------------------------
+        # 3. Delete document from Supabase Storage
+        # -------------------------------------------------
+
+        if storage_path:
+
+            supabase.storage.from_("contracts").remove(
+                [storage_path]
+            )
+
+
+        # -------------------------------------------------
+        # 4. Delete contract record from database
+        # -------------------------------------------------
+
+        supabase.table("contracts").delete().eq(
+            "id",
+            contract_id
+        ).execute()
+
+
+        # -------------------------------------------------
+        # 5. Return success response
+        # -------------------------------------------------
+
+        return {
+            "message": "Contract deleted successfully.",
+            "contract_id": contract_id
+        }
+
+
+    except HTTPException:
+        raise
+
+
+    except Exception as exc:
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to delete contract: {str(exc)}"
+        )
