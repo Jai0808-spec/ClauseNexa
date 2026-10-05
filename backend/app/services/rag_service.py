@@ -2,6 +2,10 @@ from app.database import supabase
 from app.services.storage import download_contract_file
 
 from clausenexa_rag.pipeline import preprocess_contract
+from clausenexa_rag.embeddings import (
+    embed_texts,
+    embeddings_configured
+)
 
 
 # ============================================================
@@ -29,7 +33,7 @@ def update_contract_status(
     """
     Update the processing status of a contract.
 
-    Valid statuses in ClauseNexa:
+    Valid statuses:
     - uploaded
     - processing
     - processed
@@ -63,16 +67,14 @@ def process_contract_with_rag(
         2. Validate stored contract
         3. Mark contract as processing
         4. Download PDF/DOCX from Supabase Storage
-        5. Run extraction
-        6. Run cleaning
-        7. Run clause-aware chunking
-        8. Remove old chunks if reprocessing
-        9. Store new chunks in contract_sections
-        10. Update total page count
-        11. Mark contract as processed
-
-    Returns:
-        Dictionary containing processing result.
+        5. Extract text
+        6. Clean text
+        7. Perform clause-aware chunking
+        8. Generate embeddings if configured
+        9. Remove old chunks if reprocessing
+        10. Store chunks and embeddings
+        11. Update contract metadata
+        12. Mark contract as processed
     """
 
     # ========================================================
@@ -128,7 +130,7 @@ def process_contract_with_rag(
 
 
     # ========================================================
-    # EVERYTHING BELOW IS PART OF PROCESSING
+    # PROCESSING STARTS
     # ========================================================
 
     try:
@@ -191,11 +193,10 @@ def process_contract_with_rag(
 
 
         # ====================================================
-        # 6. CONVERT RAG CHUNKS -> DATABASE ROWS
+        # 6. REMOVE EMPTY CHUNKS
         # ====================================================
 
-        section_rows = []
-
+        valid_chunks = []
 
         for chunk in chunks:
 
@@ -204,14 +205,64 @@ def process_contract_with_rag(
                 ""
             ).strip()
 
+            if content:
+                valid_chunks.append(chunk)
 
-            if not content:
-                continue
+
+        if not valid_chunks:
+            raise ContractProcessingError(
+                "The RAG pipeline produced no valid text chunks."
+            )
 
 
-            # Our current chunker returns "page_numbers".
-            # "pages" fallback keeps this compatible with
-            # earlier versions of the chunker.
+        # ====================================================
+        # 7. OPTIONAL EMBEDDING GENERATION
+        # ====================================================
+
+        embeddings = None
+
+
+        if embeddings_configured():
+
+            chunk_texts = [
+                chunk["content"].strip()
+                for chunk in valid_chunks
+            ]
+
+
+            embeddings = embed_texts(
+                chunk_texts
+            )
+
+
+            if len(embeddings) != len(valid_chunks):
+                raise ContractProcessingError(
+                    "Number of embeddings does not match "
+                    "number of contract chunks."
+                )
+
+
+        # ====================================================
+        # 8. CONVERT RAG CHUNKS -> DATABASE ROWS
+        # ====================================================
+
+        section_rows = []
+
+
+        for index, chunk in enumerate(
+            valid_chunks
+        ):
+
+            content = chunk.get(
+                "content",
+                ""
+            ).strip()
+
+
+            # ------------------------------------------------
+            # PAGE INFORMATION
+            # ------------------------------------------------
+
             pages = chunk.get(
                 "page_numbers",
                 chunk.get(
@@ -225,7 +276,6 @@ def process_contract_with_rag(
                 pages = []
 
 
-            # Make sure page numbers are stored consistently.
             pages = sorted(
                 {
                     int(page)
@@ -235,58 +285,63 @@ def process_contract_with_rag(
             )
 
 
+            # ------------------------------------------------
+            # EMBEDDING
+            # ------------------------------------------------
+
+            embedding = None
+
+
+            if embeddings is not None:
+                embedding = embeddings[index]
+
+
+            # ------------------------------------------------
+            # DATABASE ROW
+            # ------------------------------------------------
+
             section_rows.append({
 
                 "contract_id":
                     contract_id,
 
-                # We are not yet extracting a dedicated
-                # section title separately.
                 "section_title":
                     None,
 
                 "section_text":
                     content,
 
-                # First page retained for compatibility
-                # with the original database design.
+                # First page of the chunk
                 "page_number":
                     pages[0]
                     if pages
                     else None,
 
-                # Full list of pages covered by the chunk.
+                # All pages covered by the chunk
                 "page_numbers":
                     pages,
 
                 "chunk_index":
                     chunk.get(
                         "chunk_index",
-                        len(section_rows)
+                        index
                     ),
 
-                # These can be populated later if we begin
-                # tracking exact character offsets.
                 "start_char":
                     None,
 
                 "end_char":
-                    None
+                    None,
+
+                # NULL when no embedding API is configured.
+                # vector(1536) once embeddings are generated.
+                "embedding":
+                    embedding
             })
 
 
-        if not section_rows:
-            raise ContractProcessingError(
-                "The RAG pipeline produced no valid text chunks."
-            )
-
-
         # ====================================================
-        # 7. REMOVE PREVIOUS CHUNKS
-        # ====================================================
-        #
-        # This allows the same contract to be processed again
-        # without creating duplicate sections.
+        # 9. REMOVE PREVIOUS CHUNKS
         # ====================================================
 
         (
@@ -302,7 +357,7 @@ def process_contract_with_rag(
 
 
         # ====================================================
-        # 8. INSERT NEW CHUNKS
+        # 10. INSERT NEW CHUNKS
         # ====================================================
 
         insert_response = (
@@ -323,7 +378,7 @@ def process_contract_with_rag(
 
 
         # ====================================================
-        # 9. UPDATE CONTRACT METADATA
+        # 11. UPDATE CONTRACT METADATA
         # ====================================================
 
         contract_update = {
@@ -331,9 +386,6 @@ def process_contract_with_rag(
         }
 
 
-        # PDF extraction gives us page count.
-        # DOCX may return None because python-docx does not
-        # reliably expose rendered page numbers.
         if total_pages is not None:
             contract_update[
                 "total_pages"
@@ -355,7 +407,7 @@ def process_contract_with_rag(
 
 
         # ====================================================
-        # 10. SUCCESS RESPONSE
+        # 12. SUCCESS RESPONSE
         # ====================================================
 
         return {
@@ -388,6 +440,7 @@ def process_contract_with_rag(
                 contract_id=contract_id,
                 status="failed"
             )
+
         except Exception:
             pass
 
@@ -405,6 +458,7 @@ def process_contract_with_rag(
                 contract_id=contract_id,
                 status="failed"
             )
+
         except Exception:
             pass
 
