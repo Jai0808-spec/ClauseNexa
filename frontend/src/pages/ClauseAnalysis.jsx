@@ -1,39 +1,29 @@
 import React from 'react';
-import { mockContractState } from '../mockData';
+import { Link } from 'react-router-dom';
+import { useSelectedContract } from '../ContractContext';
 import './ClauseAnalysis.css';
 
 export default function ClauseAnalysis() {
-  const { clauses, documentName } = mockContractState;
+  const { selectedContract } = useSelectedContract();
+
+  if (!selectedContract) {
+    return (
+      <p>
+        No contract selected. <Link to="/">Upload or choose a contract</Link> first.
+      </p>
+    );
+  }
 
   return (
     <div className="analysis-page">
       <div className="analysis-header">
         <h1>Clause Breakdown</h1>
-        <p>Detailed risk assessment for {documentName}</p>
+        <p>Detailed risk assessment for {selectedContract.file_name}</p>
       </div>
 
-      <div className="clause-grid">
-        {clauses.map((clause) => (
-          <div key={clause.id} className={`clause-card risk-${clause.riskLevel.toLowerCase()}`}>
-            <div className="clause-card-header">
-              <span className="clause-category">{clause.category}</span>
-              <span className={`risk-badge risk-${clause.riskLevel.toLowerCase()}`}>
-                {clause.riskLevel} Risk
-              </span>
-            </div>
-            
-            <div className="clause-content">
-              <h4>Extracted Text:</h4>
-              <p className="extracted-text">"{clause.text}"</p>
-            </div>
-
-            <div className="clause-reasoning">
-              <h4>AI Reasoning:</h4>
-              <p>{clause.reason}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <p className="file-limits">
+        Clause detection is not connected to the backend yet, so there are no clauses to show.
+      </p>
     </div>
   );
 }
