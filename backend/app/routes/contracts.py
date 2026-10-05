@@ -5,8 +5,16 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 
 from app.database import supabase
 from app.services.storage import upload_contract_file
-from app.models.contract import ContractResponse
+from app.models.contract import (
+    ContractResponse,
+    ProcessContractResponse
+)
 
+from app.services.rag_service import (
+    ContractNotFoundError,
+    ContractProcessingError,
+    process_contract_with_rag
+)
 
 router = APIRouter(
     prefix="/contracts",
@@ -201,7 +209,55 @@ def get_all_contracts():
             status_code=500,
             detail=f"Failed to retrieve contracts: {str(exc)}"
         )
+# ---------------------------------------------------------
+# POST /contracts/{contract_id}/process
+# Process an uploaded contract through the RAG pipeline
+# ---------------------------------------------------------
 
+@router.post(
+    "/{contract_id}/process",
+    response_model=ProcessContractResponse
+)
+def process_uploaded_contract(
+    contract_id: str
+):
+
+    try:
+
+        result = process_contract_with_rag(
+            contract_id
+        )
+
+        return ProcessContractResponse(
+            **result
+        )
+
+
+    except ContractNotFoundError as exc:
+
+        raise HTTPException(
+            status_code=404,
+            detail=str(exc)
+        )
+
+
+    except ContractProcessingError as exc:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(exc)
+        )
+
+
+    except Exception as exc:
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Unexpected contract "
+                f"processing error: {exc}"
+            )
+        )
 
 # ---------------------------------------------------------
 # GET /contracts/{contract_id}
