@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
 import { Send, User, Bot } from 'lucide-react';
+import { useSelectedContract } from '../ContractContext';
 import './AskContract.css';
 
 export default function AskContract() {
+  const { selectedContract } = useSelectedContract();
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    { id: 1, sender: 'bot', text: 'Hello. I have analyzed "apartment_lease_agreement.pdf". What would you like to know about this contract?' }
-  ]);
+  const [messages, setMessages] = useState([]);
+
+  const documentName = selectedContract?.file_name;
+
+  const greeting = documentName
+    ? `Hello. You are asking about "${documentName}".`
+    : 'Hello. Select a contract on the Upload page first.';
 
   const handleSend = (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || !selectedContract) return;
 
-    // Add user message to chat
-    const newMessages = [...messages, { id: Date.now(), sender: 'user', text: input }];
-    setMessages(newMessages);
+    setMessages((prev) => [
+      ...prev,
+      { id: Date.now(), sender: 'user', text: input },
+      {
+        id: Date.now() + 1,
+        sender: 'bot',
+        text: 'Question answering is not connected to the backend yet.',
+      },
+    ]);
     setInput('');
-
-    // Simulate AI response delay
-    setTimeout(() => {
-      setMessages(prev => [...prev, { 
-        id: Date.now() + 1, 
-        sender: 'bot', 
-        text: 'Based on the context retrieved from the document, the tenant is responsible for structural repairs exceeding $500 as per Section 4.2.' 
-      }]);
-    }, 1000);
   };
 
   return (
@@ -36,6 +39,15 @@ export default function AskContract() {
 
       <div className="chat-container">
         <div className="message-list">
+          <div className="message-wrapper bot">
+            <div className="avatar">
+              <Bot size={20} />
+            </div>
+            <div className="message-bubble">
+              <p>{greeting}</p>
+            </div>
+          </div>
+
           {messages.map((msg) => (
             <div key={msg.id} className={`message-wrapper ${msg.sender}`}>
               <div className="avatar">
@@ -53,10 +65,11 @@ export default function AskContract() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask a question about the lease..."
+            placeholder="Ask a question about the contract..."
             className="chat-input"
+            disabled={!selectedContract}
           />
-          <button type="submit" className="send-button" disabled={!input.trim()}>
+          <button type="submit" className="send-button" disabled={!input.trim() || !selectedContract}>
             <Send size={18} />
           </button>
         </form>

@@ -74,3 +74,114 @@
   font-size: 0.875rem;
   margin: 0;
 }
+
+.dropzone-ready {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+  cursor: default;
+}
+
+.dropzone-ready:hover {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.ready-icon {
+  color: #10b981;
+  margin-bottom: 1rem;
+}
+
+.ready-name {
+  color: #065f46;
+}
+
+.ready-text {
+  color: #047857;
+  margin-bottom: 1.5rem;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button-row .browse-button {
+  margin-bottom: 0;
+}
+
+.button-danger {
+  background-color: #ef4444;
+}
+
+.button-danger:hover {
+  background-color: #dc2626;
+}
+
+.browse-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.upload-error {
+  color: #b91c1c;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+}
+
+.contract-list {
+  margin-top: 2.5rem;
+}
+
+.contract-list h2 {
+  color: #111827;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.contract-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contract-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.contract-meta {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.row-button {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.row-button.button-danger {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.row-button:hover {
+  filter: brightness(0.95);
+}
