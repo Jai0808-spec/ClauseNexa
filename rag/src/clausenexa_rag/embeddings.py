@@ -1,51 +1,63 @@
-import os
-
-from openai import OpenAI
+from sentence_transformers import SentenceTransformer
 
 
-EMBEDDING_MODEL = "text-embedding-3-small"
-EMBEDDING_DIMENSIONS = 1536
+# ============================================================
+# EMBEDDING CONFIGURATION
+# ============================================================
 
-def embeddings_configured() -> bool:
-    """
-    Return True if the embedding provider
-    is configured and ready to use.
-    """
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+EMBEDDING_DIMENSIONS = 384
 
-    return bool(
-        os.getenv("OPENAI_API_KEY")
-    )
+
+# ============================================================
+# CUSTOM EXCEPTION
+# ============================================================
 
 class EmbeddingError(Exception):
     """Raised when embedding generation fails."""
     pass
 
 
-def get_embedding_client() -> OpenAI:
-    """
-    Create the OpenAI client.
+# ============================================================
+# LOAD MODEL
+# ============================================================
 
-    The API key is only required when an
-    embedding request is actually made.
-    """
-
-    api_key = os.getenv("OPENAI_API_KEY")
-
-    if not api_key:
-        raise EmbeddingError(
-            "OPENAI_API_KEY is not configured."
-        )
-
-    return OpenAI(
-        api_key=api_key
+try:
+    embedding_model = SentenceTransformer(
+        EMBEDDING_MODEL
     )
 
+except Exception as exc:
+    raise EmbeddingError(
+        f"Could not load embedding model: {exc}"
+    ) from exc
+
+
+# ============================================================
+# EMBEDDING STATUS
+# ============================================================
+
+def embeddings_configured() -> bool:
+    """
+    Hugging Face embeddings run locally.
+
+    No API key is required, so embeddings are always available
+    once the model has been successfully loaded.
+    """
+
+    return True
+
+
+# ============================================================
+# SINGLE TEXT EMBEDDING
+# ============================================================
 
 def embed_text(
     text: str
 ) -> list[float]:
     """
-    Generate one embedding vector.
+    Convert a single text string into a
+    384-dimensional embedding vector.
     """
 
     if not text or not text.strip():
@@ -53,20 +65,18 @@ def embed_text(
             "Cannot create an embedding for empty text."
         )
 
-    client = get_embedding_client()
-
     try:
-        response = client.embeddings.create(
-            model=EMBEDDING_MODEL,
-            input=text.strip()
+        embedding = embedding_model.encode(
+            text.strip(),
+            convert_to_numpy=True,
+            normalize_embeddings=True
         )
-
-        embedding = response.data[0].embedding
 
     except Exception as exc:
         raise EmbeddingError(
             f"Embedding generation failed: {exc}"
         ) from exc
+
 
     if len(embedding) != EMBEDDING_DIMENSIONS:
         raise EmbeddingError(
@@ -74,15 +84,20 @@ def embed_text(
             f"received {len(embedding)}."
         )
 
-    return embedding
 
+    return embedding.tolist()
+
+
+# ============================================================
+# BATCH EMBEDDINGS
+# ============================================================
 
 def embed_texts(
     texts: list[str]
 ) -> list[list[float]]:
     """
-    Generate embeddings for multiple text chunks
-    in one API request.
+    Convert multiple text chunks into
+    384-dimensional embedding vectors.
     """
 
     cleaned_texts = [
@@ -91,15 +106,17 @@ def embed_texts(
         if text and text.strip()
     ]
 
+
     if not cleaned_texts:
         return []
 
-    client = get_embedding_client()
 
     try:
-        response = client.embeddings.create(
-            model=EMBEDDING_MODEL,
-            input=cleaned_texts
+        embeddings = embedding_model.encode(
+            cleaned_texts,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False
         )
 
     except Exception as exc:
@@ -107,10 +124,6 @@ def embed_texts(
             f"Batch embedding generation failed: {exc}"
         ) from exc
 
-    embeddings = [
-        item.embedding
-        for item in response.data
-    ]
 
     if len(embeddings) != len(cleaned_texts):
         raise EmbeddingError(
@@ -118,11 +131,21 @@ def embed_texts(
             "match number of input texts."
         )
 
+
+    result = []
+
+
     for embedding in embeddings:
+
         if len(embedding) != EMBEDDING_DIMENSIONS:
             raise EmbeddingError(
                 f"Expected {EMBEDDING_DIMENSIONS}-dimensional "
                 "embedding."
             )
 
-    return embeddings
+        result.append(
+            embedding.tolist()
+        )
+
+
+    return result
