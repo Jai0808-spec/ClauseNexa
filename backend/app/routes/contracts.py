@@ -7,9 +7,11 @@ from app.database import supabase
 from app.services.storage import upload_contract_file
 from app.models.contract import (
     ContractResponse,
-    ProcessContractResponse
+    ProcessContractResponse,
+    AskContractRequest,
+    AskContractResponse
 )
-
+from clausenexa_rag.rag import ask_contract
 from app.services.rag_service import (
     ContractNotFoundError,
     ContractProcessingError,
@@ -258,6 +260,95 @@ def process_uploaded_contract(
                 f"processing error: {exc}"
             )
         )
+
+
+# ---------------------------------------------------------
+# POST /contracts/{contract_id}/ask
+# Ask questions about a processed contract
+# ---------------------------------------------------------
+
+@router.post(
+    "/{contract_id}/ask",
+    response_model=AskContractResponse
+)
+def ask_uploaded_contract(
+    contract_id: str,
+    request: AskContractRequest
+):
+
+    try:
+
+        # -------------------------------------------------
+        # 1. Check that the contract exists
+        # -------------------------------------------------
+
+        response = (
+            supabase
+            .table("contracts")
+            .select("id, status")
+            .eq("id", contract_id)
+            .execute()
+        )
+
+        if not response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Contract not found."
+            )
+
+        contract = response.data[0]
+
+        # -------------------------------------------------
+        # 2. Contract must be processed first
+        # -------------------------------------------------
+
+        if contract.get("status") != "processed":
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Contract must be processed "
+                    "before asking questions."
+                )
+            )
+
+        # -------------------------------------------------
+        # 3. Validate question
+        # -------------------------------------------------
+
+        if not request.question or not request.question.strip():
+            raise HTTPException(
+                status_code=400,
+                detail="Question cannot be empty."
+            )
+
+        # -------------------------------------------------
+        # 4. Run the full RAG pipeline
+        # -------------------------------------------------
+
+        result = ask_contract(
+            supabase=supabase,
+            contract_id=contract_id,
+            question=request.question,
+            top_k=request.top_k
+        )
+
+        # -------------------------------------------------
+        # 5. Return answer + sources
+        # -------------------------------------------------
+
+        return AskContractResponse(
+            **result
+        )
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Contract question answering failed: {str(exc)}"
+        )
+
 
 # ---------------------------------------------------------
 # GET /contracts/{contract_id}
