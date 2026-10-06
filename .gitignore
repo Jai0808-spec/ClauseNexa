@@ -219,3 +219,17 @@ __marimo__/
 
 # Node
 node_modules/
+
+# ClauseNexa ML artifacts (too large for GitHub; share via Drive)
+ml/models/legalbert_classifier/
+ml/models/checkpoints/
+*.safetensors
+*.pt
+*.pth
+data/raw/LEDGAR_2016-2019_clean.jsonl
+ml/models/legalbert_classifier_7class/
+
+# Large generated datasets (rebuild with ml/scripts/01, 02, 05, or get them from the team Drive)
+data/processed/ClauseNexa_LEDGAR_Final.csv
+data/processed/ClauseNexa_LEDGAR_Clean_SingleLabel.csv
+data/processed/ClauseNexa_LEDGAR_7Class.csv

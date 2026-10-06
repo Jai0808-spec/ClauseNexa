@@ -4,15 +4,14 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "clausenexa-rag"
+name = "clausenexa-ml"
 version = "0.1.0"
-description = "RAG pipeline for ClauseNexa"
+description = "Clause classification (Legal-BERT) and rule-based risk detection for ClauseNexa"
 requires-python = ">=3.10"
 
 dependencies = [
-    "pypdf>=5.0.0",
-    "python-docx>=1.1.0",
-    "openai>=2.0.0"
+    "torch",
+    "transformers"
 ]
 
 
