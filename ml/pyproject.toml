@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "clausenexa-ml"
+version = "0.1.0"
+description = "Clause classification (Legal-BERT) and rule-based risk detection for ClauseNexa"
+requires-python = ">=3.10"
+
+dependencies = [
+    "torch",
+    "transformers"
+]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
