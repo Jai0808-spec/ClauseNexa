@@ -31,3 +31,7 @@ export function getContract(contractId) {
 export function deleteContract(contractId) {
   return request(`/contracts/${contractId}`, { method: 'DELETE' });
 }
+
+export function processContract(contractId) {
+  return request(`/contracts/${contractId}/process`, { method: 'POST' });
+}
