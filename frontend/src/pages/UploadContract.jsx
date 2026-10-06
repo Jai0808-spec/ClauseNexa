@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UploadCloud, FileText } from 'lucide-react';
-import { uploadContract, listContracts, getContract, deleteContract } from '../api';
+import { uploadContract, processContract, listContracts, getContract, deleteContract } from '../api';
 import { useSelectedContract } from '../ContractContext';
 import './UploadContract.css';
 
@@ -48,6 +48,7 @@ export default function UploadContract() {
     setError('');
     try {
       const result = await uploadContract(selectedFile);
+      await processContract(result.contract_id);
       const contract = await getContract(result.contract_id);
       setSelectedContract(contract);
       setSelectedFile(null);
