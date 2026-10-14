@@ -27,6 +27,7 @@ class AskSource(BaseModel):
     section_title: Optional[str] = None
     page_number: Optional[int] = None
     similarity: Optional[float] = None
+    text: Optional[str] = None
 
 
 class AskResponse(BaseModel):

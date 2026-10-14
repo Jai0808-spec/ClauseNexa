@@ -65,12 +65,19 @@ export default function AskContract() {
               <div className="message-bubble">
                 <p>{msg.text}</p>
                 {msg.sources?.length > 0 && (
-                  <p className="file-limits">
-                    Sources:{' '}
-                    {msg.sources
-                      .map((src) => `chunk ${src.chunk_index}${src.page_number ? ` (p. ${src.page_number})` : ''}`)
-                      .join(', ')}
-                  </p>
+                  <div className="sources">
+                    <span className="sources-label">Sources:</span>
+                    {msg.sources.map((src) => (
+                      <details key={src.chunk_index} className="source-item">
+                        <summary>
+                          Chunk {src.chunk_index}
+                          {src.page_number ? ` · p. ${src.page_number}` : ''}
+                          {src.similarity != null ? ` · ${Math.round(src.similarity * 100)}% match` : ''}
+                        </summary>
+                        <p className="source-text">{src.text}</p>
+                      </details>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

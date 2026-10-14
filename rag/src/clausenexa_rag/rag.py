@@ -1,3 +1,5 @@
+import re
+
 from clausenexa_rag.retriever import (
     retrieve_contract_sections
 )
@@ -5,6 +7,43 @@ from clausenexa_rag.retriever import (
 from clausenexa_rag.generator import (
     generate_answer
 )
+
+
+# Below this hybrid score (cosine similarity + keyword overlap) nothing in
+# the contract is related to the question, so the language model is not
+# called at all. Raw similarity alone is not enough: short questions such as
+# "Are pets allowed?" score only ~0.09 but match the clause by keyword.
+MIN_RELEVANCE = 0.2
+
+
+def strip_ungrounded_clause_refs(answer: str, context: str) -> str:
+    """
+    Remove "Clause 7.4"-style references whose number does not appear in
+    the retrieved context. The small generator model sometimes miscopies
+    clause numbers; a wrong citation is worse than none.
+    """
+
+    def replace(match):
+        number = match.group("number")
+
+        if re.search(rf"(?<![\d.]){re.escape(number)}(?![\d])", context):
+            return match.group(0)
+
+        return ""
+
+    cleaned = re.sub(
+        r"(?:(?:According to|Under|As per|Per|See|In)\s+)?"
+        r"Clauses?\s+(?P<number>\d+(?:\.\d+)*)\s*[,:]?\s*",
+        replace,
+        answer
+    )
+
+    # Re-capitalise if the removed phrase started the answer or a sentence
+    return re.sub(
+        r"(^|[.!?]\s+|\n)([a-z])",
+        lambda m: m.group(1) + m.group(2).upper(),
+        cleaned
+    ).strip()
 
 
 def ask_contract(
@@ -26,7 +65,16 @@ def ask_contract(
     )
 
 
-    if not sections:
+    best_relevance = max(
+        (
+            section.get("hybrid_score", section.get("similarity")) or 0.0
+            for section in sections
+        ),
+        default=0.0
+    )
+
+
+    if not sections or best_relevance < MIN_RELEVANCE:
 
         return {
             "answer": (
@@ -111,12 +159,15 @@ def ask_contract(
                     section.get("page_number"),
 
                 "similarity":
-                    section.get("similarity")
+                    section.get("similarity"),
+
+                "text":
+                    section.get("section_text")
             }
         )
 
 
     return {
-        "answer": answer,
+        "answer": strip_ungrounded_clause_refs(answer, context),
         "sources": sources
     }

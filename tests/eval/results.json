@@ -1,0 +1,2099 @@
+{
+ "chunk_counts": {
+  "eval_services.pdf": 7,
+  "eval_nda.docx": 2,
+  "eval_employment.docx": 2,
+  "eval_lease.docx": 2
+ },
+ "retrieval": {
+  "questions": 37,
+  "mapping_errors": [],
+  "hybrid": {
+   "precision_at_k": {
+    "1": 0.973,
+    "3": 0.3514,
+    "5": 0.2108
+   },
+   "normalised_precision_at_k": {
+    "1": 0.973,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "hit_at_k": {
+    "1": 0.973,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "recall_at_k": {
+    "1": 0.9459,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "mrr": 0.9865
+  },
+  "vector_only": {
+   "precision_at_k": {
+    "1": 0.8649,
+    "3": 0.3514,
+    "5": 0.2108
+   },
+   "normalised_precision_at_k": {
+    "1": 0.8649,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "hit_at_k": {
+    "1": 0.8649,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "recall_at_k": {
+    "1": 0.8378,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "mrr": 0.9324
+  }
+ },
+ "retrieval_large": {
+  "questions": 10,
+  "mapping_errors": [],
+  "hybrid": {
+   "precision_at_k": {
+    "1": 1.0,
+    "3": 0.3667,
+    "5": 0.22
+   },
+   "normalised_precision_at_k": {
+    "1": 1.0,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "hit_at_k": {
+    "1": 1.0,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "recall_at_k": {
+    "1": 0.95,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "mrr": 1.0
+  },
+  "vector_only": {
+   "precision_at_k": {
+    "1": 1.0,
+    "3": 0.3667,
+    "5": 0.22
+   },
+   "normalised_precision_at_k": {
+    "1": 1.0,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "hit_at_k": {
+    "1": 1.0,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "recall_at_k": {
+    "1": 0.95,
+    "3": 1.0,
+    "5": 1.0
+   },
+   "mrr": 1.0
+  }
+ },
+ "retrieval_rows": [
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the total project fee?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    4,
+    2,
+    6,
+    5
+   ],
+   "vector_top": [
+    1,
+    6,
+    0,
+    4,
+    2
+   ],
+   "best_similarity": 0.432224043342585
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How many days does the client have to pay an invoice?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    3,
+    0,
+    4,
+    5
+   ],
+   "vector_top": [
+    1,
+    3,
+    4,
+    5,
+    0
+   ],
+   "best_similarity": 0.702216183875062
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How much notice is needed to terminate for convenience?",
+   "answerable": true,
+   "relevant_chunks": [
+    3
+   ],
+   "hybrid_top": [
+    3,
+    1,
+    2,
+    5,
+    6
+   ],
+   "vector_top": [
+    3,
+    1,
+    5,
+    4,
+    6
+   ],
+   "best_similarity": 0.531636905821844
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "Which state's law governs the agreement?",
+   "answerable": true,
+   "relevant_chunks": [
+    5
+   ],
+   "hybrid_top": [
+    5,
+    4,
+    2,
+    6,
+    3
+   ],
+   "vector_top": [
+    5,
+    6,
+    2,
+    4,
+    3
+   ],
+   "best_similarity": 0.388590436833812
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How long do the confidentiality obligations last after termination?",
+   "answerable": true,
+   "relevant_chunks": [
+    2
+   ],
+   "hybrid_top": [
+    2,
+    3,
+    1,
+    6,
+    4
+   ],
+   "vector_top": [
+    2,
+    3,
+    1,
+    4,
+    5
+   ],
+   "best_similarity": 0.488731861114502
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the limit on each party's liability?",
+   "answerable": true,
+   "relevant_chunks": [
+    4
+   ],
+   "hybrid_top": [
+    4,
+    2,
+    5,
+    1,
+    3
+   ],
+   "vector_top": [
+    4,
+    2,
+    5,
+    1,
+    3
+   ],
+   "best_similarity": 0.56253990158201
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "When does the client own the custom source code?",
+   "answerable": true,
+   "relevant_chunks": [
+    2
+   ],
+   "hybrid_top": [
+    2,
+    1,
+    0,
+    3,
+    4
+   ],
+   "vector_top": [
+    2,
+    1,
+    3,
+    4,
+    0
+   ],
+   "best_similarity": 0.449364125728607
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How long does the client have to report a defect after delivery?",
+   "answerable": true,
+   "relevant_chunks": [
+    3
+   ],
+   "hybrid_top": [
+    3,
+    1,
+    2,
+    4,
+    5
+   ],
+   "vector_top": [
+    3,
+    1,
+    4,
+    5,
+    2
+   ],
+   "best_similarity": 0.647680322895043
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "When must the provider tell the client about a security incident?",
+   "answerable": true,
+   "relevant_chunks": [
+    2,
+    3
+   ],
+   "hybrid_top": [
+    3,
+    2,
+    4,
+    1,
+    0
+   ],
+   "vector_top": [
+    3,
+    4,
+    2,
+    5,
+    1
+   ],
+   "best_similarity": 0.548994167179045
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the first step in dispute resolution?",
+   "answerable": true,
+   "relevant_chunks": [
+    5
+   ],
+   "hybrid_top": [
+    5,
+    3,
+    1,
+    4,
+    6
+   ],
+   "vector_top": [
+    5,
+    3,
+    1,
+    4,
+    6
+   ],
+   "best_similarity": 0.557354211807251
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the Service Provider's ABN?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    0,
+    6,
+    4,
+    2,
+    1
+   ],
+   "vector_top": [
+    0,
+    6,
+    4,
+    2,
+    1
+   ],
+   "best_similarity": 0.453225181900706
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "Is there an automatic renewal clause?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    5,
+    1,
+    3,
+    6,
+    4
+   ],
+   "vector_top": [
+    1,
+    3,
+    6,
+    4,
+    0
+   ],
+   "best_similarity": 0.333202789234949
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "Who is the CEO of Apple?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    6,
+    4,
+    2,
+    1,
+    0
+   ],
+   "vector_top": [
+    6,
+    4,
+    2,
+    1,
+    0
+   ],
+   "best_similarity": 0.164160381059601
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "How long do the confidentiality obligations survive?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.592938500432328
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "How quickly must confidential information be returned on request?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.547528700456879
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What is each party's liability cap?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.287832417721523
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "Which law governs the NDA?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.25747641153704
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What information is excluded from the confidentiality obligations?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.630098506200492
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "Can a party assign its rights without consent?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.297696509888664
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "How long does the NDA last?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.179301446059389
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What remedy can the disclosing party seek for a breach?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.519207493043169
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What is the purpose of the information sharing?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.44101187938381
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What is the employee's salary under this agreement?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.213383304275078
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "Does this agreement include a non-compete clause?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.359230535122092
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "What is the employee's base salary?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.446555561237868
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How many days of annual leave does the employee get?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.409821437033159
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How long is the probation period?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.351966696743169
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How much notice is required to end employment after probation?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.543727175704455
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "What does the non-compete restraint cover?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.141147783926262
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "Who owns intellectual property created by the employee?",
+   "answerable": true,
+   "relevant_chunks": [
+    0,
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.372771300508303
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "When can the employer dismiss the employee without notice?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.455824765215829
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "Is a bonus guaranteed?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.333477069917077
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How many hours per week does the employee work?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.432825960776098
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "What is the monthly rent for the employee's apartment?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.28889417184661
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "Does the employee get a company car?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.342940638749023
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How much is the weekly rent?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.493865609900286
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How much is the bond?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.24664494395256
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How much notice must the landlord give before increasing rent?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.544420599937439
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "Are pets allowed?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.0854281932115555
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How often can the landlord inspect the property?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.470104161488517
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How quickly must urgent repairs be arranged?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.404195921862855
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "What happens if the tenant leaves the lease early?",
+   "answerable": true,
+   "relevant_chunks": [
+    1
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.562303237640476
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How long is the lease term?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    1,
+    0
+   ],
+   "vector_top": [
+    1,
+    0
+   ],
+   "best_similarity": 0.632625429004328
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "Who pays council rates?",
+   "answerable": true,
+   "relevant_chunks": [
+    0
+   ],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.304353007803947
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "What is the employee's annual leave entitlement?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.145973018051802
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "Is a parking space included with the unit?",
+   "answerable": false,
+   "relevant_chunks": [],
+   "hybrid_top": [
+    0,
+    1
+   ],
+   "vector_top": [
+    0,
+    1
+   ],
+   "best_similarity": 0.184609491550357
+  }
+ ],
+ "risk": {
+  "clauses": 72,
+  "accuracy": 0.875,
+  "within_one_level": 0.9861,
+  "macro_f1": 0.8746,
+  "per_level": {
+   "Low": {
+    "precision": 0.88,
+    "recall": 0.9565,
+    "f1": 0.9167,
+    "support": 23
+   },
+   "Medium": {
+    "precision": 0.8276,
+    "recall": 0.8889,
+    "f1": 0.8571,
+    "support": 27
+   },
+   "High": {
+    "precision": 0.9444,
+    "recall": 0.7727,
+    "f1": 0.85,
+    "support": 22
+   }
+  },
+  "attention_flag": {
+   "precision": 0.9787,
+   "recall": 0.9388,
+   "f1": 0.9583
+  },
+  "confusion": {
+   "Low": {
+    "Low": 22,
+    "Medium": 1
+   },
+   "Medium": {
+    "Medium": 24,
+    "Low": 2,
+    "High": 1
+   },
+   "High": {
+    "High": 17,
+    "Medium": 4,
+    "Low": 1
+   }
+  },
+  "accuracy_by_category": {
+   "Non-Compete": 0.9167,
+   "Liability": 0.9167,
+   "Termination": 0.9167,
+   "Payment": 0.75,
+   "Confidentiality": 0.8333,
+   "Governing Law": 0.9167
+  },
+  "misses": [
+   {
+    "category": "Non-Compete",
+    "expected": "High",
+    "predicted": "Medium",
+    "score": 1,
+    "reasons": [
+     "Non-compete duration: 2 years"
+    ],
+    "text": "The Vendor must not operate a competing business in any state or country in which the Company trades, for two years."
+   },
+   {
+    "category": "Liability",
+    "expected": "Low",
+    "predicted": "Medium",
+    "score": 1,
+    "reasons": [
+     "Indemnity obligation detected"
+    ],
+    "text": "Liability is capped at AUD 50,000, but the Provider must indemnify the Client for third-party IP claims."
+   },
+   {
+    "category": "Termination",
+    "expected": "High",
+    "predicted": "Low",
+    "score": 0,
+    "reasons": [],
+    "text": "The Company may terminate your engagement at its discretion with 24 hours' notice."
+   },
+   {
+    "category": "Payment",
+    "expected": "Medium",
+    "predicted": "Low",
+    "score": 0,
+    "reasons": [],
+    "text": "The Provider may change its fees at any time by notice to the Client."
+   },
+   {
+    "category": "Payment",
+    "expected": "Medium",
+    "predicted": "Low",
+    "score": 0,
+    "reasons": [],
+    "text": "Late payments incur a fee of 2% per month."
+   },
+   {
+    "category": "Payment",
+    "expected": "High",
+    "predicted": "Medium",
+    "score": 2,
+    "reasons": [
+     "Very short payment deadline: 7 days"
+    ],
+    "text": "The Client will pay within 7 days, and the Provider may increase fees unilaterally on notice."
+   },
+   {
+    "category": "Confidentiality",
+    "expected": "High",
+    "predicted": "Medium",
+    "score": 1,
+    "reasons": [
+     "No standard confidentiality exclusions detected"
+    ],
+    "text": "The Recipient's confidentiality obligations never expire."
+   },
+   {
+    "category": "Confidentiality",
+    "expected": "Medium",
+    "predicted": "High",
+    "score": 3,
+    "reasons": [
+     "Long confidentiality duration detected: 5 years",
+     "Broad definition of confidential information detected"
+    ],
+    "text": "For five years after termination each Party shall keep confidential all information received, except information in the public domain."
+   },
+   {
+    "category": "Governing Law",
+    "expected": "High",
+    "predicted": "Medium",
+    "score": 1,
+    "reasons": [
+     "Exclusive jurisdiction requirement detected"
+    ],
+    "text": "The courts of Ireland have exclusive jurisdiction over any dispute."
+   }
+  ]
+ },
+ "classifier": {
+  "clauses": 72,
+  "accuracy": 0.9306,
+  "mean_confidence": 0.9906,
+  "errors": [
+   {
+    "text": "Each Party must take reasonable steps to mitigate any loss it suffers.",
+    "expected": "Liability",
+    "predicted": "Other",
+    "confidence": 0.999
+   },
+   {
+    "text": "On termination, the Client must pay for Services performed up to the termination date.",
+    "expected": "Termination",
+    "predicted": "Payment",
+    "confidence": 0.717
+   },
+   {
+    "text": "The Provider may change its fees at any time by notice to the Client.",
+    "expected": "Payment",
+    "predicted": "Other",
+    "confidence": 0.958
+   },
+   {
+    "text": "The obligations in this clause survive for 7 years after termination.",
+    "expected": "Confidentiality",
+    "predicted": "Termination",
+    "confidence": 0.998
+   },
+   {
+    "text": "Disputes will be referred to mediation before any court proceedings are commenced.",
+    "expected": "Governing Law",
+    "predicted": "Other",
+    "confidence": 0.766
+   }
+  ]
+ },
+ "answers": {
+  "answerable_questions": 37,
+  "answer_correctness": 0.973,
+  "citation_hit_rate": 1.0,
+  "citation_precision": 0.4378,
+  "unanswerable_questions": 9,
+  "correct_abstention_rate": 1.0,
+  "hallucination_rate_on_unanswerable": 0.0,
+  "faithfulness_sentence_score": 0.981,
+  "fully_faithful_answers": 0.9429,
+  "answers_with_ungrounded_numbers": 0,
+  "latency_seconds": {
+   "mean": 3.77,
+   "median": 3.59,
+   "max": 6.62
+  }
+ },
+ "answer_rows": [
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the total project fee?",
+   "answerable": true,
+   "answer": "AUD 24,000",
+   "sources": [
+    1,
+    4,
+    2,
+    6,
+    5
+   ],
+   "seconds": 3.64,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How many days does the client have to pay an invoice?",
+   "answerable": true,
+   "answer": "According to Clause 4.2 of the contract, the Client must pay the Service Provider in three instalments: \n- 30% on commencement,\n- 40% after delivery of the working prototype,\n- 30% following final acceptance. \n\nIf an undisputed amount remains unpaid for more than 14 days after its due date, the Service Provider may suspend non-critical Services after giving the Client five Business Days' written notice.",
+   "sources": [
+    1,
+    3,
+    0,
+    4,
+    5
+   ],
+   "seconds": 6.62,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 5,
+    "supported": 5,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How much notice is needed to terminate for convenience?",
+   "answerable": true,
+   "answer": "According to Clause 10.1 of the contract, either Party may terminate this Agreement for convenience by giving 30 calendar days' written notice to the other Party.",
+   "sources": [
+    3,
+    1,
+    2,
+    5,
+    6
+   ],
+   "seconds": 4.38,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "Which state's law governs the agreement?",
+   "answerable": true,
+   "answer": "This contract is governed by the laws of New South Wales, Australia.",
+   "sources": [
+    5,
+    4,
+    2,
+    6,
+    3
+   ],
+   "seconds": 3.43,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How long do the confidentiality obligations last after termination?",
+   "answerable": true,
+   "answer": "These confidentiality obligations continue for three years after termination or expiry.",
+   "sources": [
+    2,
+    3,
+    1,
+    6,
+    4
+   ],
+   "seconds": 3.49,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the limit on each party's liability?",
+   "answerable": true,
+   "answer": "Each Party's total aggregate liability arising out of or in connection with this Agreement will not exceed the total fees paid or payable under this Agreement.",
+   "sources": [
+    4,
+    2,
+    5,
+    1,
+    3
+   ],
+   "seconds": 3.97,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "When does the client own the custom source code?",
+   "answerable": true,
+   "answer": "According to Clause 7.2, upon full payment of all project fees, the Client will own the custom source code and project-specific Deliverables created exclusively for the Client under this Agreement.",
+   "sources": [
+    2,
+    1,
+    0,
+    3,
+    4
+   ],
+   "seconds": 4.35,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "How long does the client have to report a defect after delivery?",
+   "answerable": true,
+   "answer": "According to Clause 9.1, a Deliverable will be considered accepted if the Client confirms acceptance in writing or does not report a material defect within ten Business Days after delivery.",
+   "sources": [
+    3,
+    1,
+    2,
+    4,
+    5
+   ],
+   "seconds": 4.3,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "When must the provider tell the client about a security incident?",
+   "answerable": true,
+   "answer": "According to the contract, the Service Provider must notify the Client without undue delay after becoming aware of a confirmed security incident that materially affects Client data.",
+   "sources": [
+    3,
+    2,
+    4,
+    1,
+    0
+   ],
+   "seconds": 3.95,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.4,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the first step in dispute resolution?",
+   "answerable": true,
+   "answer": "According to Clause 15.1, the first step in dispute resolution is:\n\nBefore starting court proceedings, the Parties must first attempt in good faith to resolve any dispute through discussion between their project managers.",
+   "sources": [
+    5,
+    3,
+    1,
+    4,
+    6
+   ],
+   "seconds": 4.35,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.2,
+   "faith": {
+    "sentences": 2,
+    "supported": 2,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "What is the Service Provider's ABN?",
+   "answerable": false,
+   "answer": "The contract does not provide enough information to answer this question.",
+   "sources": [
+    0,
+    6,
+    4,
+    2,
+    1
+   ],
+   "seconds": 3.46,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "Is there an automatic renewal clause?",
+   "answerable": false,
+   "answer": "No, there is no automatic renewal clause mentioned in the contract.",
+   "sources": [
+    5,
+    1,
+    3,
+    6,
+    4
+   ],
+   "seconds": 3.37,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_services.pdf",
+   "q": "Who is the CEO of Apple?",
+   "answerable": false,
+   "answer": "I could not find relevant information in this contract.",
+   "sources": [],
+   "seconds": 2.2,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "How long do the confidentiality obligations survive?",
+   "answerable": true,
+   "answer": "According to Clause 4.2 of the contract, the confidentiality obligations survive for five years after the date each item of Confidential Information is disclosed, even if this Agreement has ended.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 4.14,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "How quickly must confidential information be returned on request?",
+   "answerable": true,
+   "answer": "According to Clause 5.1 of the contract, within 14 days of receiving a written request, the Receiving Party must return or permanently delete all Confidential Information and confirm in writing that it has done so.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 4.44,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What is each party's liability cap?",
+   "answerable": true,
+   "answer": "According to the contract, each Party's total liability under this Agreement is limited to AUD 250,000, except for deliberate misuse of Confidential Information.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.96,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "Which law governs the NDA?",
+   "answerable": true,
+   "answer": "This contract does not provide enough information to answer this question.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.04,
+   "abstained": true,
+   "correct": false,
+   "citation_hit": true,
+   "citation_precision": 0.5
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What information is excluded from the confidentiality obligations?",
+   "answerable": true,
+   "answer": "According to the contract, the following information is excluded from the confidentiality obligations:\n\n- Information that is or becomes public without breach by the Receiving Party\n- Was already known to the Receiving Party before disclosure\n- Is independently developed without use of Confidential Information\n- Is lawfully received from a third party without restriction",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 5.23,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 5,
+    "supported": 5,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "Can a party assign its rights without consent?",
+   "answerable": true,
+   "answer": "Yes, according to Clause 9.3 of the contract, neither Party may assign its rights under this Agreement without the other Party's prior written consent.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.97,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "How long does the NDA last?",
+   "answerable": true,
+   "answer": "The NDA lasts for two years from the date specified in the contract.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.31,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What remedy can the disclosing party seek for a breach?",
+   "answerable": true,
+   "answer": "The Disclosing Party can seek an injunction or specific performance without proving actual loss.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.27,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What is the purpose of the information sharing?",
+   "answerable": true,
+   "answer": "The purpose of the information sharing is to evaluate a possible data analytics partnership between Harbour Analytics Pty Ltd and Beacon Retail Pty Ltd.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.55,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "What is the employee's salary under this agreement?",
+   "answerable": false,
+   "answer": "The contract does not provide enough information to answer this question.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.21,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_nda.docx",
+   "q": "Does this agreement include a non-compete clause?",
+   "answerable": false,
+   "answer": "No, there is no non-compete clause included in this agreement.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.19,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "What is the employee's base salary?",
+   "answerable": true,
+   "answer": "According to the contract, the Employee's base salary is AUD 95,000 per year, paid fortnightly.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.75,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How many days of annual leave does the employee get?",
+   "answerable": true,
+   "answer": "According to the contract, the employee is entitled to **20 days** of paid annual leave each year.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.46,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How long is the probation period?",
+   "answerable": true,
+   "answer": "According to the contract, the probation period is the first six months of employment.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.31,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How much notice is required to end employment after probation?",
+   "answerable": true,
+   "answer": "According to the contract, after probation, either party may end the employment by giving four weeks' written notice.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.52,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "What does the non-compete restraint cover?",
+   "answerable": true,
+   "answer": "According to the contract, the non-compete restraint covers the following:\n\n- For 12 months after employment ends.\n- The Employee must not work for a direct competitor of the Employer within 50 kilometers of the Parramatta office.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 4.49,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 3,
+    "supported": 2,
+    "score": 0.6666666666666666,
+    "ungrounded_numbers": [],
+    "fully_faithful": false
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "Who owns intellectual property created by the employee?",
+   "answerable": true,
+   "answer": "According to Chunk 1, all intellectual property created by the Employee in the course of employment belongs to the Employer, and the Employee assigns those rights to the Employer.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.84,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 1.0,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "When can the employer dismiss the employee without notice?",
+   "answerable": true,
+   "answer": "According to the contract, the Employer may end the employment immediately without notice in cases of serious misconduct, including theft, fraud, or serious breach of safety rules.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.92,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "Is a bonus guaranteed?",
+   "answerable": true,
+   "answer": "No, the contract does not guarantee a bonus. Paragraph 3.2 states that the Employee may be paid a discretionary annual bonus of up to 10% of base salary, based on performance. The Employer is not obliged to pay a bonus.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 4.72,
+   "abstained": true,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "How many hours per week does the employee work?",
+   "answerable": true,
+   "answer": "According to the contract, the employee works 38 hours per week.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.16,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "What is the monthly rent for the employee's apartment?",
+   "answerable": false,
+   "answer": "The contract does not provide enough information to answer this question.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.21,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_employment.docx",
+   "q": "Does the employee get a company car?",
+   "answerable": false,
+   "answer": "No, the contract does not mention anything about an employee receiving a company car.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.22,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How much is the weekly rent?",
+   "answerable": true,
+   "answer": "According to the contract, the weekly rent is AUD 650.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.24,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How much is the bond?",
+   "answerable": true,
+   "answer": "According to the contract, the Tenant must pay a rental bond of **AUD 2,600**.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.54,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How much notice must the landlord give before increasing rent?",
+   "answerable": true,
+   "answer": "According to the contract, the Landlord must give the Tenant at least 60 days' written notice before increasing the rent in any 12-month period.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 4.0,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "Are pets allowed?",
+   "answerable": true,
+   "answer": "Yes, pets are allowed in the premises under the following conditions:\n\n- The Tenant must obtain the Landlord's prior written consent to keep a pet.\n- The consent must not be unreasonably withheld.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 4.32,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 3,
+    "supported": 2,
+    "score": 0.6666666666666666,
+    "ungrounded_numbers": [],
+    "fully_faithful": false
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How often can the landlord inspect the property?",
+   "answerable": true,
+   "answer": "According to the contract, the landlord may enter the premises for a routine inspection after giving the tenant at least seven days' written notice, and no more than four times in any 12-month period.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 4.52,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How quickly must urgent repairs be arranged?",
+   "answerable": true,
+   "answer": "According to the contract, urgent repairs, such as a burst water pipe or a gas leak, must be arranged within 24 hours of being told by the Landlord.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 4.12,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "What happens if the tenant leaves the lease early?",
+   "answerable": true,
+   "answer": "If the tenant ends the lease early, they must pay a re-letting fee equal to two weeks' rent plus rent until a new tenant takes over, up to a maximum of four weeks.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 4.39,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "How long is the lease term?",
+   "answerable": true,
+   "answer": "The lease term is 12 months, starting from 1 November 2026.",
+   "sources": [
+    1,
+    0
+   ],
+   "seconds": 3.45,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "Who pays council rates?",
+   "answerable": true,
+   "answer": "The Landlord pays council rates and strata levies.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.04,
+   "abstained": false,
+   "correct": true,
+   "citation_hit": true,
+   "citation_precision": 0.5,
+   "faith": {
+    "sentences": 1,
+    "supported": 1,
+    "score": 1.0,
+    "ungrounded_numbers": [],
+    "fully_faithful": true
+   }
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "What is the employee's annual leave entitlement?",
+   "answerable": false,
+   "answer": "I could not find relevant information in this contract.",
+   "sources": [],
+   "seconds": 2.17,
+   "abstained": true,
+   "correct": true
+  },
+  {
+   "contract": "eval_lease.docx",
+   "q": "Is a parking space included with the unit?",
+   "answerable": false,
+   "answer": "The contract does not provide enough information to answer this question.",
+   "sources": [
+    0,
+    1
+   ],
+   "seconds": 3.16,
+   "abstained": true,
+   "correct": true
+  }
+ ]
+}
