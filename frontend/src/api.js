@@ -35,3 +35,15 @@ export function deleteContract(contractId) {
 export function processContract(contractId) {
   return request(`/contracts/${contractId}/process`, { method: 'POST' });
 }
+
+export function getContractAnalysis(contractId) {
+  return request(`/contracts/${contractId}/analysis`);
+}
+
+export function askContract(contractId, question) {
+  return request(`/contracts/${contractId}/ask`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question }),
+  });
+}

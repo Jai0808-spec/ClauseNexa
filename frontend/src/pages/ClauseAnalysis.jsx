@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelectedContract } from '../ContractContext';
+import { useContractAnalysis, useSelectedContract } from '../ContractContext';
 import './ClauseAnalysis.css';
+
+const riskClass = (level) => {
+  if (level === 'High') return 'risk-high';
+  if (level === 'Medium') return 'risk-medium';
+  return '';
+};
 
 export default function ClauseAnalysis() {
   const { selectedContract } = useSelectedContract();
+  const { analysis, loading, error } = useContractAnalysis(selectedContract?.id);
 
   if (!selectedContract) {
     return (
@@ -21,9 +28,37 @@ export default function ClauseAnalysis() {
         <p>Detailed risk assessment for {selectedContract.file_name}</p>
       </div>
 
-      <p className="file-limits">
-        Clause detection is not connected to the backend yet, so there are no clauses to show.
-      </p>
+      {loading && <p className="file-limits">Analysing clauses…</p>}
+      {error && <p className="file-limits">{error}</p>}
+
+      {analysis && (
+        <div className="clause-grid">
+          {analysis.clauses.map((clause) => (
+            <div
+              key={clause.clause_number}
+              className={`clause-card ${riskClass(clause.risk_level)}`}
+            >
+              <div className="clause-card-header">
+                <span className="clause-category">{clause.predicted_category}</span>
+                <span className={`risk-badge ${riskClass(clause.risk_level)}`}>
+                  {clause.risk_level}
+                </span>
+              </div>
+              <div className="clause-content">
+                <h4>Clause text</h4>
+                <p className="extracted-text">{clause.clause_text}</p>
+              </div>
+              <div className="clause-reasoning">
+                <h4>Reasoning</h4>
+                {clause.risk_reasons.map((reason) => (
+                  <p key={reason}>{reason}</p>
+                ))}
+              </div>
+            </div>
+          ))}
+          <p className="file-limits">{analysis.disclaimer}</p>
+        </div>
+      )}
     </div>
   );
 }

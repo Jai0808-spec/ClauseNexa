@@ -6,6 +6,8 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from app.database import supabase
 from app.services.storage import upload_contract_file
 from app.models.contract import (
+    AskRequest,
+    AskResponse,
     ContractResponse,
     ProcessContractResponse
 )
@@ -292,6 +294,128 @@ def get_contract(contract_id: str):
             status_code=500,
             detail=f"Failed to retrieve contract: {str(exc)}"
         )
+
+# ---------------------------------------------------------
+# POST /contracts/{contract_id}/ask
+# Question answering over a processed contract (RAG + LLM)
+# ---------------------------------------------------------
+
+@router.post("/{contract_id}/ask", response_model=AskResponse)
+def ask_contract_question(contract_id: str, request: AskRequest):
+
+    # Imported here so the backend still starts when the RAG
+    # generation dependencies (torch, transformers) are missing.
+    try:
+        from clausenexa_rag.rag import ask_contract
+    except ImportError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=f"RAG layer is not installed: {exc}"
+        )
+    except Exception as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Answer model is unavailable: {exc}"
+        )
+
+    try:
+        contract = (
+            supabase
+            .table("contracts")
+            .select("status")
+            .eq("id", contract_id)
+            .execute()
+        )
+
+        if not contract.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Contract not found."
+            )
+
+        if contract.data[0]["status"] != "processed":
+            raise HTTPException(
+                status_code=409,
+                detail="Contract has not been processed yet."
+            )
+
+        return ask_contract(
+            supabase=supabase,
+            contract_id=contract_id,
+            question=request.question,
+            top_k=request.top_k
+        )
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Question answering failed: {str(exc)}"
+        )
+
+
+# ---------------------------------------------------------
+# GET /contracts/{contract_id}/analysis
+# Clause classification + risk detection (ML layer)
+# ---------------------------------------------------------
+
+@router.get("/{contract_id}/analysis")
+def get_contract_analysis(contract_id: str):
+
+    # Imported here so the backend still starts when the ML
+    # dependencies (torch, transformers) are not installed.
+    try:
+        from clausenexa_ml import analyze_contract
+    except ImportError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=f"ML layer is not installed: {exc}"
+        )
+
+    try:
+        response = (
+            supabase
+            .table("contract_sections")
+            .select("section_text, chunk_index")
+            .eq("contract_id", contract_id)
+            .order("chunk_index")
+            .execute()
+        )
+
+        if not response.data:
+            raise HTTPException(
+                status_code=404,
+                detail=(
+                    "No processed text found for this contract. "
+                    "Run /process first."
+                )
+            )
+
+        contract_text = "\n\n".join(
+            row["section_text"]
+            for row in response.data
+        )
+
+        return analyze_contract(contract_text)
+
+    except HTTPException:
+        raise
+
+    except (OSError, ValueError) as exc:
+        # Raised when the Legal-BERT model files are missing.
+        raise HTTPException(
+            status_code=503,
+            detail=f"Clause model is unavailable: {exc}"
+        )
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Contract analysis failed: {str(exc)}"
+        )
+
 
     # ---------------------------------------------------------
 # DELETE /contracts/{contract_id}
