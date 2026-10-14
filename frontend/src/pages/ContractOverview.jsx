@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelectedContract } from '../ContractContext';
+import { useContractAnalysis, useSelectedContract } from '../ContractContext';
 import './ContractOverview.css';
+
+const riskClass = (level) => {
+  if (level === 'High') return 'risk-high';
+  if (level === 'Medium') return 'risk-medium';
+  return '';
+};
 
 export default function ContractOverview() {
   const { selectedContract } = useSelectedContract();
+  const { analysis, loading, error } = useContractAnalysis(selectedContract?.id);
+  const summary = analysis?.summary;
 
   if (!selectedContract) {
     return (
@@ -36,9 +44,43 @@ export default function ContractOverview() {
         </div>
       </div>
 
-      <p className="file-limits">
-        Clause and risk metrics will appear here once the NLP pipeline is connected to the backend.
-      </p>
+      {loading && <p className="file-limits">Analysing contract…</p>}
+      {error && <p className="file-limits">{error}</p>}
+
+      {summary && (
+        <div className="metrics-grid">
+          <div className={`metric-card ${riskClass(summary.overall_risk_level)}`}>
+            <h3>Overall Risk</h3>
+            <p className="metric-value">{summary.overall_risk_level ?? 'None found'}</p>
+          </div>
+          <div className="metric-card">
+            <h3>Clauses</h3>
+            <p className="metric-value">{summary.total_clauses}</p>
+          </div>
+          <div className="metric-card risk-high">
+            <h3>High Risk</h3>
+            <p className="metric-value">{summary.risk_level_counts.High}</p>
+          </div>
+          <div className="metric-card risk-medium">
+            <h3>Medium Risk</h3>
+            <p className="metric-value">{summary.risk_level_counts.Medium}</p>
+          </div>
+          <div className="metric-card">
+            <h3>Needs Review</h3>
+            <p className="metric-value">{summary.needs_review_clauses}</p>
+          </div>
+          <div className="metric-card">
+            <h3>Categories Not Found</h3>
+            <p className="file-limits">
+              {summary.categories_not_found.length
+                ? summary.categories_not_found.join(', ')
+                : 'All six categories present'}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {analysis && <p className="file-limits">{analysis.disclaimer}</p>}
     </div>
   );
 }

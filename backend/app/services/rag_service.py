@@ -333,8 +333,8 @@ def process_contract_with_rag(
                 "end_char":
                     None,
 
-                # NULL when no embedding API is configured.
-                # vector(1536) once embeddings are generated.
+                # NULL when sentence-transformers is not installed.
+                # vector(384) once embeddings are generated.
                 "embedding":
                     embedding
             })
