@@ -14,7 +14,7 @@ export default function App() {
       <Router>
         <div className="app-container">
           <nav className="top-nav">
-            <h2>ClauseNexa</h2>
+            <h2><Link to="/" className="brand">ClauseNexa</Link></h2>
             <ul>
               <li><Link to="/">Upload</Link></li>
               <li><Link to="/overview">Overview</Link></li>
