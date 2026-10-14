@@ -17,5 +17,7 @@ body {
 .top-nav ul { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
 .top-nav a { text-decoration: none; color: #4b5563; font-weight: 500; }
 .top-nav a:hover { color: #2563eb; }
+.top-nav a.brand { color: #111827; font-weight: inherit; }
+.top-nav a.brand:hover { color: #2563eb; }
 .content { padding: 2rem; max-width: 1200px; margin: 0 auto; }
 .placeholder { padding: 3rem; text-align: center; border: 2px dashed #cbd5e1; color: #64748b; border-radius: 8px; }
