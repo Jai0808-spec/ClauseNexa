@@ -85,12 +85,18 @@ Answer the user's question using ONLY the contract
 context provided to you.
 
 Rules:
-1. Do not use outside knowledge.
+1. Do not use outside knowledge. If the question is not about
+   this contract (for example general knowledge or people not named
+   in it), reply exactly: "The contract does not provide enough
+   information to answer this question."
 2. Do not invent contract terms.
 3. If the answer is not present in the context,
    say that the contract does not provide enough
    information.
-4. Keep the answer clear and concise.
+4. Answer the specific question asked, using the clause that
+   directly addresses it. Be concise, but if the question asks for
+   several conditions, rights or steps, include all of them as
+   short bullets. Quote key terms and figures.
 5. Mention relevant clause numbers when available.
 """
 
@@ -139,7 +145,7 @@ QUESTION:
 
             outputs = model.generate(
                 **inputs,
-                max_new_tokens=250,
+                max_new_tokens=240,
                 do_sample=False
             )
 

@@ -1,0 +1,59 @@
+{
+  "_about": "gold = text that must appear in a relevant chunk (retrieval truth). answer_any = at least one of these must appear in the answer (answer correctness). Questions with answerable=false must be refused / answered 'not in the contract'.",
+  "contracts": {
+    "eval_services.pdf": [
+      {"q": "What is the total project fee?", "gold": "total project fee is AUD 24,000", "answer_any": ["24,000"]},
+      {"q": "How many days does the client have to pay an invoice?", "gold": "within 14 calendar days of the invoice date", "answer_any": ["14"]},
+      {"q": "How much notice is needed to terminate for convenience?", "gold": "for convenience by giving 30 calendar days", "answer_any": ["30"]},
+      {"q": "Which state's law governs the agreement?", "gold": "governed by the laws of New South Wales", "answer_any": ["new south wales", "nsw"]},
+      {"q": "How long do the confidentiality obligations last after termination?", "gold": "continue for three years after termination", "answer_any": ["three years", "3 years"]},
+      {"q": "What is the limit on each party's liability?", "gold": "will not exceed the total fees paid or payable", "answer_any": ["total fees", "fees paid"]},
+      {"q": "When does the client own the custom source code?", "gold": "will own the custom source code", "answer_any": ["full payment", "fully paid", "all project fees"]},
+      {"q": "How long does the client have to report a defect after delivery?", "gold": "ten Business Days after delivery", "answer_any": ["ten business days", "10 business days", "ten (10)"]},
+      {"q": "When must the provider tell the client about a security incident?", "gold": "without undue delay after becoming aware", "answer_any": ["without undue delay"]},
+      {"q": "What is the first step in dispute resolution?", "gold": "through discussion between their project managers", "answer_any": ["discussion", "project managers"]},
+      {"q": "What is the Service Provider's ABN?", "answerable": false},
+      {"q": "Is there an automatic renewal clause?", "answerable": false},
+      {"q": "Who is the CEO of Apple?", "answerable": false}
+    ],
+    "eval_nda.docx": [
+      {"q": "How long do the confidentiality obligations survive?", "gold": "survive for five years after the date", "answer_any": ["five years", "5 years"]},
+      {"q": "How quickly must confidential information be returned on request?", "gold": "Within 14 days of a written request", "answer_any": ["14 days", "14"]},
+      {"q": "What is each party's liability cap?", "gold": "limited to AUD 250,000", "answer_any": ["250,000"]},
+      {"q": "Which law governs the NDA?", "gold": "governed by the laws of Victoria", "answer_any": ["victoria"]},
+      {"q": "What information is excluded from the confidentiality obligations?", "gold": "becomes public without breach", "answer_any": ["public", "already known", "independently developed"]},
+      {"q": "Can a party assign its rights without consent?", "gold": "may assign its rights under this Agreement without", "answer_any": ["consent"]},
+      {"q": "How long does the NDA last?", "gold": "lasts for two years from the date above", "answer_any": ["two years", "2 years"]},
+      {"q": "What remedy can the disclosing party seek for a breach?", "gold": "injunction or specific performance", "answer_any": ["injunction", "specific performance"]},
+      {"q": "What is the purpose of the information sharing?", "gold": "evaluating a possible data analytics partnership", "answer_any": ["analytics partnership", "data analytics"]},
+      {"q": "What is the employee's salary under this agreement?", "answerable": false},
+      {"q": "Does this agreement include a non-compete clause?", "answerable": false}
+    ],
+    "eval_employment.docx": [
+      {"q": "What is the employee's base salary?", "gold": "base salary of AUD 95,000", "answer_any": ["95,000"]},
+      {"q": "How many days of annual leave does the employee get?", "gold": "20 days of paid annual leave", "answer_any": ["20"]},
+      {"q": "How long is the probation period?", "gold": "first six months of employment are a probation period", "answer_any": ["six months", "6 months"]},
+      {"q": "How much notice is required to end employment after probation?", "gold": "four weeks' written notice", "answer_any": ["four weeks", "4 weeks"]},
+      {"q": "What does the non-compete restraint cover?", "gold": "within 50 kilometres of the Parramatta office", "answer_any": ["50", "12 months"]},
+      {"q": "Who owns intellectual property created by the employee?", "gold": "belongs to the Employer", "answer_any": ["employer"]},
+      {"q": "When can the employer dismiss the employee without notice?", "gold": "immediately without notice in cases of serious misconduct", "answer_any": ["serious misconduct"]},
+      {"q": "Is a bonus guaranteed?", "gold": "discretionary annual bonus of up to 10%", "answer_any": ["discretionary", "not obliged", "not guaranteed"]},
+      {"q": "How many hours per week does the employee work?", "gold": "38 hours per week", "answer_any": ["38"]},
+      {"q": "What is the monthly rent for the employee's apartment?", "answerable": false},
+      {"q": "Does the employee get a company car?", "answerable": false}
+    ],
+    "eval_lease.docx": [
+      {"q": "How much is the weekly rent?", "gold": "rent is AUD 650 per week", "answer_any": ["650"]},
+      {"q": "How much is the bond?", "gold": "rental bond of AUD 2,600", "answer_any": ["2,600"]},
+      {"q": "How much notice must the landlord give before increasing rent?", "gold": "at least 60 days' written notice of the increase", "answer_any": ["60"]},
+      {"q": "Are pets allowed?", "gold": "must not keep any pet at the premises without", "answer_any": ["consent"]},
+      {"q": "How often can the landlord inspect the property?", "gold": "no more than four times in any 12-month period", "answer_any": ["four times", "4 times", "four"]},
+      {"q": "How quickly must urgent repairs be arranged?", "gold": "within 24 hours of being told", "answer_any": ["24 hours"]},
+      {"q": "What happens if the tenant leaves the lease early?", "gold": "re-letting fee equal to two weeks' rent", "answer_any": ["re-letting fee", "two weeks"]},
+      {"q": "How long is the lease term?", "gold": "fixed term of 12 months", "answer_any": ["12 months", "twelve months"]},
+      {"q": "Who pays council rates?", "gold": "The Landlord pays council rates", "answer_any": ["landlord"]},
+      {"q": "What is the employee's annual leave entitlement?", "answerable": false},
+      {"q": "Is a parking space included with the unit?", "answerable": false}
+    ]
+  }
+}
