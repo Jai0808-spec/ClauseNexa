@@ -21,7 +21,6 @@ difference is recorded rather than hidden.
 | Repository size at submission | 36 commits, 7 branches |
 | Document author | Jai Lodha |
 | Document reviewers | All four team members |
-| Approver | Not required |
 | Version | 1.0 — final submission, 15 Oct 2026 (history in git) |
 
 ## 2. Process-area coverage (maturity level 2 + 3 areas used)
