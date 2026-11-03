@@ -218,7 +218,6 @@ alongside other work, not 16 full days of effort per person. These are **planned
 | Gurpreet | 2.1, 2.3, 6.1, 6.2, 6.4, 7.3, 8, 11, 12 | 10.5 | 47.3 |
 | Eashaan | 2.1, 2.3, 7.1, 7.3, 9, 11, 12 | 8.5 | 38.3 |
 | Kavyah | 2.1, 2.3, 3, 4, 5, 6.3, 6.4, 8, 11 | 11.0 | 49.5 |
-| **Team total** | | | **193.5** |
 
 ## 11. Configuration management (CM)
 Git with feature branches merged to `main` by pull request: `backend`, `frontend`, `frontend-mock-ui`,
