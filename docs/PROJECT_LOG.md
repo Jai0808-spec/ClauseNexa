@@ -13,10 +13,16 @@ difference is recorded rather than hidden.
 | Supervisor | Dr. Abhijit Dasgupta, S P Jain School of Global Management, Sydney |
 | Plan window (Gantt) | 21 Sep – 15 Oct 2026 |
 | Repository created | 2026-09-28 |
-| Last commit | 2026-10-14 (PR #13) |
+| Last project commit | 2026-10-14, `aba0f55` — merge of PR #13 (ml-nlp) by Kavyah |
 | Final submission | 2026-10-15 |
+| Demo / presentation | 2026-11-05 |
 | Repository | https://github.com/Jai0808-spec/ClauseNexa |
-| Version | 1.0 (final; history in git) |
+| Final report | CAPSTONE FINAL PROJECT REPORT (PDF), submitted 15 Oct 2026 |
+| Repository size at submission | 36 commits, 7 branches |
+| Document author | Jai Lodha |
+| Document reviewers | All four team members |
+| Approver | Not required |
+| Version | 1.0 — final submission, 15 Oct 2026 (history in git) |
 
 ## 2. Process-area coverage (maturity level 2 + 3 areas used)
 | Area | Where it is addressed |
@@ -48,19 +54,19 @@ difference is recorded rather than hidden.
 | R8 | Refuse questions the contract cannot answer | relevance gate in `rag.py` | 9 unanswerable questions, incl. off-topic |
 | R9 | Four-screen React UI: Upload, Overview, Clause Analysis, Ask Contract | `frontend/src/pages/` | Live UI test `App.live.test.js` (7-step journey) |
 | R10 | Not legal advice; disclaimer shown with results | analysis response `disclaimer` field; Overview page | Visual check (report screenshots) |
-| R11 | CMMI L3 documentation | this file | review by team |
+| R11 | CMMI L3 documentation | this file | Reviewed by all four team members |
 
 ## 4. Project plan versus Gantt
 Planned dates are read from the ProjectLibre Gantt chart in the report; actual dates come from git commits.
 
 | WBS | Gantt task (planned) | Owner | Actual evidence | Status |
 |---|---|---|---|---|
-| 1 | Project Proposal Submission (21 Sep) | Jai | Proposal referenced in `docs/TESTING.md` §2 | Done |
+| 1 | Project Proposal Submission (21 Sep) | Jai | Submitted on the Gantt date (team confirmation); Trello card due 1 Oct; proposal referenced in `docs/TESTING.md` §2 | Done (deadline met) |
 | 2.1 | First Official Team Meeting (22 Sep) | All | Trello card due 4 Oct; Slack post 6 Oct "first team meeting has been completed" | Done (date differs, see note) |
 | 2.2 | Tool Setup — GitHub, Trello, Slack (22 Sep) | Jai | Repo created 28 Sep (`faa7398`) | Done |
 | 2.3 | Freeze ClauseNexa MVP & Scope (23 Sep) | Eashaan, Gurpreet, Kavyah | Trello card due 3 Oct | Done |
 | 2.4 | Milestone: Architecture & Scope Frozen | — | Planned 24/09 | Met late |
-| 3 | Literature Review (24–25 Sep) | Jai, Kavyah | Report §Existing Frameworks and Research | Done |
+| 3 | Literature Review (24–25 Sep) | Jai, Kavyah | Started once the project topic and domain were finalised; Trello card "Data finding and literature review" due 2 Oct; report §Existing Frameworks and Research | Done |
 | 4 | LEDGAR Dataset Collection | Kavyah | `ml/scripts/01_build_ledgar_dataset.py`; first ML upload 28/29 Sep (`25f0acf`) | Done |
 | 5 | 7-Class Dataset Cleaning & Preprocessing | Kavyah | `02_clean_single_label.py`, `05_build_7class_dataset.py` | Done |
 | 6.1 | Clause Chunker & 384-d MiniLM Embeddings | Gurpreet | `eab511a` 5 Oct, `430a65d` 5 Oct, `f076e51` 6 Oct | Done |
@@ -73,10 +79,10 @@ Planned dates are read from the ProjectLibre Gantt chart in the report; actual d
 | 7.3 | Full-Stack API Wiring & Citation Integration | Eashaan, Gurpreet, Jai | `1e551f7` 5 Oct; `52ce60d` 6 Oct; `089e594` 14 Oct | Done |
 | 7.4 | Milestone: Full-Stack MVP Integrated | — | Planned 09/10; actual 14 Oct | Met late |
 | 8 | Testing & Evaluation (F1 & Precision@K) | Gurpreet, Kavyah | `7e29ff1` 14 Oct; `docs/EVALUATION.md` | Done |
-| 9 | Frontend UAT & Regression Testing | Eashaan, Jai | `App.live.test.js`; defects 8–9 found in manual use | Done (no full manual browser walkthrough recorded) |
+| 9 | Frontend UAT & Regression Testing | Eashaan, Jai | `App.live.test.js`; defects 8–9 found in manual use; whole team walked through the app on 13–14 Oct (team statement; no written record) | Done (see discrepancy note under §4) |
 | 10 | Continuous Documentation (CM3 format) | All | README rewrite `1e7a82a` 14 Oct; docs folder | Done |
 | 11 | Final Project Report Compilation | All | Report dated 15 Oct | Done |
-| 12 | Project Demo & Presentation Prep | Eashaan, Gurpreet | — | Done |
+| 12 | Project Demo & Presentation Prep | Eashaan, Gurpreet | Demo scheduled for 5 Nov 2026 (after the 15 Oct submission) | Preparation done; demo pending |
 | 13 | Final Project Submission (15 Oct) | Jai | Report submitted 15 Oct | Done |
 
 **Schedule note (PMC).** The Gantt planned initiation for 21–24 Sep, but the repository was created on 28 Sep and the
@@ -85,10 +91,14 @@ of plan (28–29 Sep), while the ML/RAG milestone slipped four days (planned 3 O
 five days (planned 9 Oct, done 14 Oct). Causes are listed in §6 (dataset change, GPU limits, internships). Testing,
 documentation and submission still met the 15 Oct deadline.
 
+**Discrepancy note (UAT).** The team states that all four members walked through the app on 13–14 Oct, but the submitted
+report ("no manual testing of the entire browser") and `docs/TESTING.md` §6 say no browser walkthrough was done. Both are
+recorded here; the written test documents were not updated after the walkthrough.
+
 ## 5. Decision log (DAR)
 | ID | Decision | Alternatives | Rationale |
 |---|---|---|---|
-| DEC-001 | Train on LEDGAR only, grouped by source contract | V1 dataset (CUAD + LEDGAR) | V1 was not good enough for the project and was dropped; grouping prevents train/test leakage. V1 file `data/raw/ClauseNexa_ML_Dataset.csv` kept but unused. |
+| DEC-001 | Train on LEDGAR only, grouped by source contract (decided 3 Oct 2026) | V1 dataset (CUAD + LEDGAR) | V1 was not good enough for the project and was dropped; grouping prevents train/test leakage. V1 file `data/raw/ClauseNexa_ML_Dataset.csv` kept but unused. |
 | DEC-002 | Legal-BERT, 7 classes (6 categories + Other) | 6-class model; TF-IDF + LR only | "Other" stops unrelated clauses being forced into a category; Legal-BERT is domain pre-trained. |
 | DEC-003 | Keep TF-IDF + Logistic Regression as baseline | none | Proposal requires a baseline comparison; cheap to train. |
 | DEC-004 | Classifier confidence < 0.70 → "Needs Review", no risk rules run | always apply rules | Avoids confident-looking risk flags on uncertain clauses. |
@@ -130,8 +140,11 @@ Defects found by testing and fixed: 10 (broken route string, vector-only retriev
 wrong clause citation, faulty eval scoring, slow CPU answers, truncated lists, sources shown only as numbers, embedding reset
 on migration). Full list: `docs/TESTING.md` §7.
 
-**Not done:** contracts longer than 5 pages; real-world contracts; scanned PDFs; load or concurrency testing; a full manual
-walkthrough in a real browser; team review of the 72 risk labels; 7-class Logistic Regression baseline.
+Reviews completed after the 14 Oct run: the 72 hand-labelled risk clauses were reviewed by Kavyah and Gurpreet on 12–13 Oct;
+the team walkthrough of the app took place on 13–14 Oct (see discrepancy note in §4).
+
+**Not done:** contracts longer than 5 pages; real-world contracts; scanned PDFs; load or concurrency testing; a recorded
+manual browser test with written results; 7-class Logistic Regression baseline.
 
 ## 8. Quality assurance (PPQA)
 Defined process (Slack #workspace, 6 Oct): all work on individual branches; no direct pushes to `main`; a Slack update after
@@ -140,14 +153,23 @@ moved to Completed with comments and blockers; documentation kept at every major
 
 Peer-review allocation: Kavyah → Eashaan, Eashaan → Jai, Jai → Gurpreet, Gurpreet → Kavyah.
 
+Peer reviews were carried out locally on the reviewer's machine, so GitHub holds no review comments or approvals. The only
+records are the Slack review requests and confirmations (for example Eashaan's "I have reviewed your work… Looks good" on
+Kavyah's ml-nlp push) and the resulting merge commits. This is a known limitation of the review evidence.
+
 ## 9. Activity log
 | Date | Activity | By |
 |---|---|---|
+| 2026-09-21 | Project proposal submitted (Gantt date) | Jai |
+| 2026-09-22 | First official team meeting and tool setup — GitHub, Trello, Slack (Gantt date; see §4 for the differing Trello and Slack dates) | All |
+| 2026-09-23 | ClauseNexa MVP and scope frozen (Gantt date; milestone 24 Sep) | Eashaan, Gurpreet, Kavyah |
+| 2026-09-24 to 25 | Literature review (Gantt dates) | Jai, Kavyah |
 | 2026-09-28 | Repository and folder structure created (`faa7398`, `2ac4a1e`) | Jai |
 | 2026-09-28 | Initial ML files uploaded (PR #1) | Kavyah |
 | 2026-09-28 | Supabase schema (PR #2); contract PDF upload API (PR #3) | Jai |
 | 2026-09-29 | Contract management API complete (PR #4); file structure updated | Jai |
 | 2026-09-29 | React frontend started | Eashaan |
+| 2026-10-03 | Dataset switched from the V1 dataset (CUAD + LEDGAR) to LEDGAR only (DEC-001, RK1) | Team |
 | 2026-10-04 | Clause Analysis grid and Ask Contract chat UI (PR #5, #6) | Eashaan |
 | 2026-10-05 | Frontend connected to backend; contract context and dev scripts | Jai |
 | 2026-10-05 | RAG preprocessing, `/process` endpoint, embedding support (PR #7) | Gurpreet |
@@ -156,10 +178,13 @@ Peer-review allocation: Kavyah → Eashaan, Eashaan → Jai, Jai → Gurpreet, G
 | 2026-10-06 | Upload now calls RAG processing; embeddings switched to local 384-d (PR #9) | Jai, Gurpreet |
 | 2026-10-07 | Supabase embeddings resized to 384-d; retrieval; local answer generation; ask endpoint (PR #11, #12) | Gurpreet |
 | 2026-10-07 | Backend wiring of Kavyah's work pushed for review | Jai |
+| 2026-10-12 to 13 | 72 hand-labelled risk clauses reviewed | Kavyah, Gurpreet |
+| 2026-10-13 to 14 | Team walkthrough of the app (UAT) | All |
 | 2026-10-14 | Backend, RAG, ML and frontend wired together (AI-assisted) | Jai |
 | 2026-10-14 | Evaluation suite, UI test, testing docs; RAG hardened; sources shown (AI-assisted) | Jai |
 | 2026-10-14 | README rewritten with full documentation; PR #13 merged | Kavyah |
 | 2026-10-15 | Final report submitted | Team |
+| 2026-11-05 | Project demo and presentation (scheduled) | Eashaan, Gurpreet |
 
 ## 10. Measurement and analysis (MA)
 | Measure | Result |
@@ -177,9 +202,23 @@ Peer-review allocation: Kavyah → Eashaan, Eashaan → Jai, Jai → Gurpreet, G
 | Citation hit rate / citation precision | 100% / 43.8% |
 | Fully faithful answers (lexical proxy) | 94.3% |
 | Answer latency mean / max (RTX 4050, 6 GB) | 3.8 s / 6.6 s |
-| Repository size | 36 commits, 7 branches, 13 pull requests |
+| Repository size at submission | 36 commits, 7 branches; merge commits found for PRs #1–#7 and #9–#13 (none for #8) |
 
 Faithfulness is a lexical proxy (70% content-word overlap, all numbers present) and should be read as an upper bound.
+
+### Planned effort per member (derived from the Gantt chart)
+Method: for every Gantt task, duration in days × each assigned resource, at 4.5 project hours per working day (an
+assumption reflecting part-time capstone work alongside other commitments such as internships; no member exceeds 60 hours
+planned). The 16-day "Continuous Documentation" task (WBS 10) is excluded because it is an elapsed span running
+alongside other work, not 16 full days of effort per person. These are **planned** figures. Actual hours were not tracked.
+
+| Member | Tasks (WBS) | Planned days | Planned hours |
+|---|---|---|---|
+| Jai | 1, 2.1, 2.2, 3, 6.2, 7.2, 7.3, 9, 11, 13 | 13.0 | 58.5 |
+| Gurpreet | 2.1, 2.3, 6.1, 6.2, 6.4, 7.3, 8, 11, 12 | 10.5 | 47.3 |
+| Eashaan | 2.1, 2.3, 7.1, 7.3, 9, 11, 12 | 8.5 | 38.3 |
+| Kavyah | 2.1, 2.3, 3, 4, 5, 6.3, 6.4, 8, 11 | 11.0 | 49.5 |
+| **Team total** | | **43.0** | **193.5** |
 
 ## 11. Configuration management (CM)
 Git with feature branches merged to `main` by pull request: `backend`, `frontend`, `frontend-mock-ui`,
