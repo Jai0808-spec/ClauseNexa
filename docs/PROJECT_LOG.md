@@ -29,6 +29,7 @@ difference is recorded rather than hidden.
 | 2026-10-15 | Version 1.0 submitted with the final report | Jai |
 | 2026-11-03 | Post-submission update: confirmed dates, reviewers, demo date, planned effort | Jai |
 | 2026-11-05 | Post-submission improvement: requirements change log, extra risks, backend technical record, self-assessment (§12–§13) | Jai |
+| 2026-11-05 | Added DEC-017 (FastAPI) and DEC-018 (supabase-py) with alternatives, risk RK14 (blocking client), and clarified that the frontend chains upload and `/process` (§5, §6, §9, §12) | Jai |
 
 ## 2. Process-area coverage (maturity level 2 + 3 areas used)
 | Area | Where it is addressed |
@@ -131,6 +132,8 @@ recorded here; the written test documents were not updated after the walkthrough
 | DEC-014 | Train Legal-BERT on Google Colab | laptop training | Laptops lacked GPU capacity for fine-tuning (`train_legalbert_7class_colab.ipynb`). |
 | DEC-015 | React SPA with a central Context provider and a service module | per-page fetching | Avoids duplicate network calls; separates transport from UI. |
 | DEC-016 | Large models and datasets git-ignored and shared via Google Drive | commit to GitHub | Files exceed GitHub limits. |
+| DEC-017 | FastAPI for the backend | Flask; Django / Django REST Framework; Node/Express; Spring Boot | The ML and RAG packages (Legal-BERT, sentence-transformers, Qwen) are Python and are imported in-process, so a Python framework avoids a second service. FastAPI gives Pydantic request validation and automatic Swagger docs at `/docs` with little code. Flask lacks both; Django adds an ORM, admin and auth that Supabase makes unnecessary; Node or Java would need a separate Python service for the models. |
+| DEC-018 | `supabase-py` client (PostgREST over HTTPS) for all database and Storage access | asyncpg; psycopg2; SQLAlchemy (async) with asyncpg | One client covers tables, Storage and the vector-search RPC, with no connection strings or pooling to manage, and the queries are simple (insert, select by id, delete, one RPC). asyncpg is faster and truly async but needs direct connections and still cannot reach Storage; psycopg2 is synchronous; SQLAlchemy is heavy for two active tables. Cost of the choice: the client is synchronous (see RK14). No raw-SQL driver is used anywhere in the repository. |
 
 ## 6. Risk register (RSKM)
 | ID | Risk | Mitigation | Status |
@@ -148,6 +151,7 @@ recorded here; the written test documents were not updated after the walkthrough
 | RK11 | Backend dependencies are unpinned (`backend/requirements.txt`), so builds may not be reproducible | None | Open — pin versions |
 | RK12 | `/process` is synchronous and reprocessing deletes old chunks before inserting new ones | Status set to `failed` on error | Open — move to a background job; make the swap atomic |
 | RK13 | No automated tests of the backend routes themselves | Covered indirectly by the evaluation runner and live UI test | Open — add route-level tests with a mocked Supabase client |
+| RK14 | The `supabase-py` client is synchronous, but `/contracts/upload` is an `async def` route, so its Storage and database calls block the event loop while they run; with several concurrent users other requests would wait | None; acceptable for a single-user local demo (load and concurrency testing was not done, §7) | Open — use asyncpg through Supabase's connection pooler for database calls, or run the calls in a thread pool; move `/process` to a background job (RK12) |
 
 ## 7. Verification and validation record
 Run on 14 Oct 2026 (`tests/eval/run_eval.py`, `tests/test_risk_detector.py`):
@@ -203,7 +207,7 @@ Kavyah's ml-nlp push) and the resulting merge commits. This is a known limitatio
 | 2026-10-05 | RAG preprocessing, `/process` endpoint, embedding support (PR #7) | Gurpreet |
 | 2026-10-06 | Team process posted in Slack (§8); first team meeting confirmed | Jai |
 | 2026-10-06 | 7-class Legal-BERT and risk detection layer (PR #10) | Kavyah |
-| 2026-10-06 | Upload now calls RAG processing; embeddings switched to local 384-d (PR #9) | Jai, Gurpreet |
+| 2026-10-06 | Upload followed by RAG processing: the frontend calls `/process` straight after `/upload` (`UploadContract.jsx`); the backend upload route itself only stores the file. Embeddings switched to local 384-d (PR #9) | Jai, Gurpreet |
 | 2026-10-07 | Supabase embeddings resized to 384-d; retrieval; local answer generation; ask endpoint (PR #11, #12) | Gurpreet |
 | 2026-10-07 | Backend wiring of Kavyah's work pushed for review | Jai |
 | 2026-10-12 to 13 | 72 hand-labelled risk clauses reviewed | Kavyah, Gurpreet |
@@ -280,6 +284,8 @@ Scope: `backend/` (FastAPI, Python) with Supabase (PostgreSQL, pgvector, Storage
 | POST | `/contracts/{id}/ask` | Cited answer; question 1–1000 characters, `top_k` 1–10 | 404, 409 not processed, 503 |
 | DELETE | `/contracts/{id}` | Delete the stored file and all rows | 404, 500 |
 
+- **Upload and processing are separate calls:** `/contracts/upload` only stores the file and inserts the row. The frontend (`UploadContract.jsx`) calls `/process` immediately afterwards, so a client that uploads without calling `/process` leaves the contract at `uploaded` and cannot use `/ask`.
+- **Database access:** every query goes through the `supabase-py` client, which calls Supabase's PostgREST and Storage HTTP APIs; there is no direct Postgres connection and no asyncpg, psycopg or SQLAlchemy in the repository (DEC-018). The client is synchronous and is called from an `async def` upload route, which blocks the event loop (RK14).
 - **Status lifecycle:** `uploaded` → `processing` → `processed` or `failed`; `/ask` accepts only `processed` contracts.
 - **Data:** `contracts` and `contract_sections` (chunks, page numbers, `vector(384)`) are used by the API; `detected_clauses`, `risk_flags`, `questions`, `answers` and `source_references` are modelled in the schema but not written by the routes. RPC `match_contract_sections` returns the nearest chunks by cosine similarity for one contract.
 - **Design choices:** service-role key kept on the server (RLS on, no policies); Storage upload before the database insert, with cleanup on failure; RAG and ML imported lazily so the API starts without them (503 instead); models preloaded in a background thread; CORS limited to `http://localhost:3000`.
@@ -297,6 +303,6 @@ Scope: `backend/` (FastAPI, Python) with Supabase (PostgreSQL, pgvector, Storage
 | TS / PI | Met | §5, §12 |
 | VER | Partly met | No backend route tests (RK13) |
 | VAL | Partly met | Team walkthrough not written up (§4 note) |
-| RSKM / DAR | Met | Four open risks listed (RK10–RK13) |
+| RSKM / DAR | Met | Five open risks listed (RK10–RK14) |
 | OPD | Partly met | Process defined on 6 Oct; no tailoring guidelines |
 | Training (OT) | Not performed | Outside the scope of this project |
