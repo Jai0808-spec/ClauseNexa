@@ -13,7 +13,7 @@ difference is recorded rather than hidden.
 | Supervisor | Dr. Abhijit Dasgupta, S P Jain School of Global Management, Sydney |
 | Plan window (Gantt) | 21 Sep – 15 Oct 2026 |
 | Repository created | 2026-09-28 |
-| Last project commit | 2026-10-14, `aba0f55` — merge of PR #13 (ml-nlp) by Kavyah |
+| Last project commit | 2026-10-14, `e7570c2` — merge of PR #13 (ml-nlp) by Kavyah |
 | Final submission | 2026-10-15 |
 | Demo / presentation | 2026-11-05 |
 | Repository | https://github.com/Jai0808-spec/ClauseNexa |
@@ -42,7 +42,7 @@ difference is recorded rather than hidden.
 | PPQA Process & Product Quality Assurance | §8 peer review and checks |
 | CM Configuration Management | §11 |
 | TS Technical Solution | §5 decisions, §12 backend record, `README.md` §6 |
-| PI Product Integration | commit `089e594` "Wire backend, RAG, ML and frontend together" |
+| PI Product Integration | commit `06196bc` "Wire backend, RAG, ML and frontend together" |
 | VER Verification / VAL Validation | §7 |
 | RSKM Risk Management | §6 |
 | DAR Decision Analysis & Resolution | §5 |
@@ -69,9 +69,9 @@ No requirements baseline was kept, so changes are reconstructed from the decisio
 | ID | Change | Reason | Evidence | Date |
 |---|---|---|---|---|
 | CH-1 | Dataset changed from V1 (CUAD + LEDGAR) to LEDGAR only (R3) | V1 not good enough for the project | DEC-001, RK1 | 3 Oct 2026 |
-| CH-2 | Classifier changed from 6 classes to 7 (added "Other") (R3) | Unrelated clauses were being forced into a category | DEC-002, commit `a20553d` | 6 Oct 2026 |
-| CH-3 | Embeddings changed to local all-MiniLM-L6-v2, 384 dimensions (R7) | No API cost, compact vectors | DEC-006, commits `f076e51`, `11c089c`, migration 003 (RK9) | 6–7 Oct 2026 |
-| CH-4 | Answers must show the source text, not only chunk numbers (R6) | Users could not verify the evidence; proposal requires showing source text | Defect 9, commit `7e29ff1` | 14 Oct 2026 |
+| CH-2 | Classifier changed from 6 classes to 7 (added "Other") (R3) | Unrelated clauses were being forced into a category | DEC-002, commit `b2ed476` | 6 Oct 2026 |
+| CH-3 | Embeddings changed to local all-MiniLM-L6-v2, 384 dimensions (R7) | No API cost, compact vectors | DEC-006, commits `cfb451b`, `d1b83bc`, migration 003 (RK9) | 6–7 Oct 2026 |
+| CH-4 | Answers must show the source text, not only chunk numbers (R6) | Users could not verify the evidence; proposal requires showing source text | Defect 9, commit `bec9bac` | 14 Oct 2026 |
 | CH-5 | Cloud (AWS) deployment dropped; run locally with CUDA | Agreed in Slack; GPU answers about 4 s | DEC-013 | Oct 2026 |
 
 ## 4. Project plan versus Gantt
@@ -81,24 +81,24 @@ Planned dates are read from the ProjectLibre Gantt chart in the report; actual d
 |---|---|---|---|---|
 | 1 | Project Proposal Submission (21 Sep) | Jai | Submitted on the Gantt date (team confirmation); Trello card due 1 Oct; proposal referenced in `docs/TESTING.md` §2 | Done (deadline met) |
 | 2.1 | First Official Team Meeting (22 Sep) | All | Trello card due 4 Oct; Slack post 6 Oct "first team meeting has been completed" | Done (date differs, see note) |
-| 2.2 | Tool Setup — GitHub, Trello, Slack (22 Sep) | Jai | Repo created 28 Sep (`faa7398`) | Done |
+| 2.2 | Tool Setup — GitHub, Trello, Slack (22 Sep) | Jai | Repo created 28 Sep (`e263635`) | Done |
 | 2.3 | Freeze ClauseNexa MVP & Scope (23 Sep) | Eashaan, Gurpreet, Kavyah | Trello card due 3 Oct | Done |
 | 2.4 | Milestone: Architecture & Scope Frozen | — | Planned 24/09 | Met late |
 | 3 | Literature Review (24–25 Sep) | Jai, Kavyah | Started once the project topic and domain were finalised; Trello card "Data finding and literature review" due 2 Oct; report §Existing Frameworks and Research | Done |
-| 4 | LEDGAR Dataset Collection | Kavyah | `ml/scripts/01_build_ledgar_dataset.py`; first ML upload 28/29 Sep (`25f0acf`) | Done |
+| 4 | LEDGAR Dataset Collection | Kavyah | `ml/scripts/01_build_ledgar_dataset.py`; first ML upload 28/29 Sep (`e9b1b29`) | Done |
 | 5 | 7-Class Dataset Cleaning & Preprocessing | Kavyah | `02_clean_single_label.py`, `05_build_7class_dataset.py` | Done |
-| 6.1 | Clause Chunker & 384-d MiniLM Embeddings | Gurpreet | `eab511a` 5 Oct, `430a65d` 5 Oct, `f076e51` 6 Oct | Done |
-| 6.2 | Supabase pgvector & Cosine Search RPC | Gurpreet, Jai | `11c089c` 7 Oct, migrations 002–004 | Done |
-| 6.3 | Legal-BERT & Logistic Regression Training | Kavyah | `a20553d` 6 Oct (PR #10); Colab notebook | Done |
-| 6.4 | Rule-Based Risk Detector & Qwen2.5 RAG | Gurpreet, Kavyah | `a20553d` 6 Oct; `13c068e` 7 Oct | Done |
+| 6.1 | Clause Chunker & 384-d MiniLM Embeddings | Gurpreet | `03fe3c9` 5 Oct, `7e4a659` 5 Oct, `cfb451b` 6 Oct | Done |
+| 6.2 | Supabase pgvector & Cosine Search RPC | Gurpreet, Jai | `d1b83bc` 7 Oct, migrations 002–004 | Done |
+| 6.3 | Legal-BERT & Logistic Regression Training | Kavyah | `b2ed476` 6 Oct (PR #10); Colab notebook | Done |
+| 6.4 | Rule-Based Risk Detector & Qwen2.5 RAG | Gurpreet, Kavyah | `b2ed476` 6 Oct; `206716c` 7 Oct | Done |
 | 6.5 | Milestone: ML & RAG Pipelines Ready | — | Planned 03/10; actual 7 Oct (PR #12) | Met late |
-| 7.1 | Frontend (React SPA, Context & 4 Screens) | Eashaan | `cf388bd` 29 Sep; `ba0da0f` 4 Oct (PR #5, #6) | Done |
-| 7.2 | Backend (FastAPI Routes & Supabase CRUD) | Jai | `f25d794`, `9889d64`, `2ba9f8d` 28–29 Sep (PR #2–#4) | Done (early) |
-| 7.3 | Full-Stack API Wiring & Citation Integration | Eashaan, Gurpreet, Jai | `1e551f7` 5 Oct; `52ce60d` 6 Oct; `089e594` 14 Oct | Done |
+| 7.1 | Frontend (React SPA, Context & 4 Screens) | Eashaan | `2244afd` 29 Sep; `a8178da` 4 Oct (PR #5, #6) | Done |
+| 7.2 | Backend (FastAPI Routes & Supabase CRUD) | Jai | `401a145`, `4682bfb`, `a99eac1` 28–29 Sep (PR #2–#4) | Done (early) |
+| 7.3 | Full-Stack API Wiring & Citation Integration | Eashaan, Gurpreet, Jai | `f5429bc` 5 Oct; `80081ef` 6 Oct; `06196bc` 14 Oct | Done |
 | 7.4 | Milestone: Full-Stack MVP Integrated | — | Planned 09/10; actual 14 Oct | Met late |
-| 8 | Testing & Evaluation (F1 & Precision@K) | Gurpreet, Kavyah | `7e29ff1` 14 Oct; `docs/EVALUATION.md` | Done |
+| 8 | Testing & Evaluation (F1 & Precision@K) | Gurpreet, Kavyah | `bec9bac` 14 Oct; `docs/EVALUATION.md` | Done |
 | 9 | Frontend UAT & Regression Testing | Eashaan, Jai | `App.live.test.js`; defects 8–9 found in manual use; whole team walked through the app on 13–14 Oct (team statement; no written record) | Done (see discrepancy note under §4) |
-| 10 | Continuous Documentation (CM3 format) | All | README rewrite `1e7a82a` 14 Oct; docs folder | Done |
+| 10 | Continuous Documentation (CM3 format) | All | README rewrite `6e55e71` 14 Oct; docs folder | Done |
 | 11 | Final Project Report Compilation | All | Report dated 15 Oct | Done |
 | 12 | Project Demo & Presentation Prep | Eashaan, Gurpreet | Demo scheduled for 5 Nov 2026 (after the 15 Oct submission) | Preparation done; demo pending |
 | 13 | Final Project Submission (15 Oct) | Jai | Report submitted 15 Oct | Done |
@@ -121,7 +121,7 @@ recorded here; the written test documents were not updated after the walkthrough
 | DEC-003 | Keep TF-IDF + Logistic Regression as baseline | none | Proposal requires a baseline comparison; cheap to train. |
 | DEC-004 | Classifier confidence < 0.70 → "Needs Review", no risk rules run | always apply rules | Avoids confident-looking risk flags on uncertain clauses. |
 | DEC-005 | Rule-based (keyword/regex) risk detector | learned risk model | Transparent and explainable to non-lawyers; no labelled risk data available. |
-| DEC-006 | Local Hugging Face all-MiniLM-L6-v2 embeddings, 384-d | paid embedding API | No API cost; compact vectors (commit `f076e51`, migration 003). |
+| DEC-006 | Local Hugging Face all-MiniLM-L6-v2 embeddings, 384-d | paid embedding API | No API cost; compact vectors (commit `cfb451b`, migration 003). |
 | DEC-007 | Supabase (PostgreSQL + Storage + pgvector) | separate DB and vector store | One managed service for files, tables and vector search. |
 | DEC-008 | Hybrid retrieval: cosine similarity re-ranked with keyword score (weight 0.5), top-k 5 | vector search only | Vector-only search missed a governing-law clause (defect 2); hybrid raised P@1 from 86.5% to 97.3%. |
 | DEC-009 | Local answer generation with Qwen2.5-1.5B-Instruct | hosted LLM API | Runs on a 6 GB GPU; no API cost; contract text stays local. |
@@ -196,7 +196,7 @@ Kavyah's ml-nlp push) and the resulting merge commits. This is a known limitatio
 | 2026-09-22 | First official team meeting and tool setup — GitHub, Trello, Slack (Gantt date; see §4 for the differing Trello and Slack dates) | All |
 | 2026-09-23 | ClauseNexa MVP and scope frozen (Gantt date; milestone 24 Sep) | Eashaan, Gurpreet, Kavyah |
 | 2026-09-24 to 25 | Literature review (Gantt dates) | Jai, Kavyah |
-| 2026-09-28 | Repository and folder structure created (`faa7398`, `2ac4a1e`) | Jai |
+| 2026-09-28 | Repository and folder structure created (`e263635`, `c540665`) | Jai |
 | 2026-09-28 | Initial ML files uploaded (PR #1) | Kavyah |
 | 2026-09-28 | Supabase schema (PR #2); contract PDF upload API (PR #3) | Jai |
 | 2026-09-29 | Contract management API complete (PR #4); file structure updated | Jai |
@@ -264,7 +264,7 @@ Git with feature branches merged to `main` by pull request: `backend`, `frontend
 Git-ignored and shared via Google Drive: Legal-BERT model folders, `*.safetensors`, `*.pt`, the LEDGAR corpus and large
 processed CSVs. Also ignored: `.env`, `node_modules/`, virtual environments.
 
-**Baseline.** The submitted product is identified by commit `aba0f55` (14 Oct 2026, merge of PR #13). No git tag exists;
+**Baseline.** The submitted product is identified by commit `e7570c2` (14 Oct 2026, merge of PR #13). No git tag exists;
 creating `v1.0` on that commit is a recommended action. **Change control:** all changes enter `main` by pull request (from
 6 Oct), schema changes go through numbered migrations, and requirement changes are recorded in the §3 change log.
 **Known gaps:** backend dependencies are unpinned (RK11), no requirements baseline was kept, and no configuration audit was
@@ -289,7 +289,7 @@ Scope: `backend/` (FastAPI, Python) with Supabase (PostgreSQL, pgvector, Storage
 - **Status lifecycle:** `uploaded` → `processing` → `processed` or `failed`; `/ask` accepts only `processed` contracts.
 - **Data:** `contracts` and `contract_sections` (chunks, page numbers, `vector(384)`) are used by the API; `detected_clauses`, `risk_flags`, `questions`, `answers` and `source_references` are modelled in the schema but not written by the routes. RPC `match_contract_sections` returns the nearest chunks by cosine similarity for one contract.
 - **Design choices:** service-role key kept on the server (RLS on, no policies); Storage upload before the database insert, with cleanup on failure; RAG and ML imported lazily so the API starts without them (503 instead); models preloaded in a background thread; CORS limited to `http://localhost:3000`.
-- **Integration order:** schema → upload API → `/process` → embeddings → ML layer → `/ask` and `/analysis` → frontend wiring (`089e594`).
+- **Integration order:** schema → upload API → `/process` → embeddings → ML layer → `/ask` and `/analysis` → frontend wiring (`06196bc`).
 
 ## 13. Process-area self-assessment
 | Area | Status | Gap and action |
