@@ -23,6 +23,13 @@ difference is recorded rather than hidden.
 | Document reviewers | All four team members |
 | Version | 1.0 — final submission, 15 Oct 2026 (history in git) |
 
+**Revision history**
+| Date | Change | By |
+|---|---|---|
+| 2026-10-15 | Version 1.0 submitted with the final report | Jai |
+| 2026-11-03 | Post-submission update: confirmed dates, reviewers, demo date, planned effort | Jai |
+| 2026-11-05 | Post-submission improvement: requirements change log, extra risks, backend technical record, self-assessment (§12–§13) | Jai |
+
 ## 2. Process-area coverage (maturity level 2 + 3 areas used)
 | Area | Where it is addressed |
 |---|---|
@@ -33,7 +40,7 @@ difference is recorded rather than hidden.
 | MA Measurement & Analysis | §10 measures |
 | PPQA Process & Product Quality Assurance | §8 peer review and checks |
 | CM Configuration Management | §11 |
-| TS Technical Solution | §5 decisions, `README.md` §6 |
+| TS Technical Solution | §5 decisions, §12 backend record, `README.md` §6 |
 | PI Product Integration | commit `089e594` "Wire backend, RAG, ML and frontend together" |
 | VER Verification / VAL Validation | §7 |
 | RSKM Risk Management | §6 |
@@ -54,6 +61,17 @@ difference is recorded rather than hidden.
 | R9 | Four-screen React UI: Upload, Overview, Clause Analysis, Ask Contract | `frontend/src/pages/` | Live UI test `App.live.test.js` (7-step journey) |
 | R10 | Not legal advice; disclaimer shown with results | analysis response `disclaimer` field; Overview page | Visual check (report screenshots) |
 | R11 | CMMI L3 documentation | this file | Reviewed by all four team members |
+
+### Requirements change log
+No requirements baseline was kept, so changes are reconstructed from the decision log, commits and test defects.
+
+| ID | Change | Reason | Evidence | Date |
+|---|---|---|---|---|
+| CH-1 | Dataset changed from V1 (CUAD + LEDGAR) to LEDGAR only (R3) | V1 not good enough for the project | DEC-001, RK1 | 3 Oct 2026 |
+| CH-2 | Classifier changed from 6 classes to 7 (added "Other") (R3) | Unrelated clauses were being forced into a category | DEC-002, commit `a20553d` | 6 Oct 2026 |
+| CH-3 | Embeddings changed to local all-MiniLM-L6-v2, 384 dimensions (R7) | No API cost, compact vectors | DEC-006, commits `f076e51`, `11c089c`, migration 003 (RK9) | 6–7 Oct 2026 |
+| CH-4 | Answers must show the source text, not only chunk numbers (R6) | Users could not verify the evidence; proposal requires showing source text | Defect 9, commit `7e29ff1` | 14 Oct 2026 |
+| CH-5 | Cloud (AWS) deployment dropped; run locally with CUDA | Agreed in Slack; GPU answers about 4 s | DEC-013 | Oct 2026 |
 
 ## 4. Project plan versus Gantt
 Planned dates are read from the ProjectLibre Gantt chart in the report; actual dates come from git commits.
@@ -126,6 +144,10 @@ recorded here; the written test documents were not updated after the walkthrough
 | RK7 | Time pressure; members starting internships | Trello due dates, Slack updates, peer-review pairs | Accepted — milestones slipped (§4) |
 | RK8 | Confidential contract data | Local processing, temporary storage, delete endpoint | Partly mitigated — no authentication |
 | RK9 | Migration 003 clears existing embeddings | Re-run `/process` for older contracts | Documented |
+| RK10 | Upload has no size limit and trusts the client's declared file type | Extension and MIME allowlist only | Open — add size limit and file-signature check |
+| RK11 | Backend dependencies are unpinned (`backend/requirements.txt`), so builds may not be reproducible | None | Open — pin versions |
+| RK12 | `/process` is synchronous and reprocessing deletes old chunks before inserting new ones | Status set to `failed` on error | Open — move to a background job; make the swap atomic |
+| RK13 | No automated tests of the backend routes themselves | Covered indirectly by the evaluation runner and live UI test | Open — add route-level tests with a mocked Supabase client |
 
 ## 7. Verification and validation record
 Run on 14 Oct 2026 (`tests/eval/run_eval.py`, `tests/test_risk_detector.py`):
@@ -142,6 +164,9 @@ on migration). Full list: `docs/TESTING.md` §7.
 Reviews completed after the 14 Oct run: the 72 hand-labelled risk clauses were reviewed by Kavyah and Gurpreet on 12–13 Oct;
 the team walkthrough of the app took place on 13–14 Oct (see discrepancy note in §4).
 
+**Known verification gaps:** the backend routes have no unit or integration tests of their own. The rollback after a failed
+database insert, reprocessing, and the 404 / 409 / 503 error paths are exercised by no automated test (RK13).
+
 **Not done:** contracts longer than 5 pages; real-world contracts; scanned PDFs; load or concurrency testing; a recorded
 manual browser test with written results; 7-class Logistic Regression baseline.
 
@@ -149,6 +174,10 @@ manual browser test with written results; 7-class Logistic Regression baseline.
 Defined process (Slack #workspace, 6 Oct): all work on individual branches; no direct pushes to `main`; a Slack update after
 each push (what was done, branch, dependencies, ready for review); a named peer reviewer merges after review; Trello card
 moved to Completed with comments and blockers; documentation kept at every major step.
+
+This process was formalised on 6 Oct. Earlier work (28 Sep – 5 Oct: schema, upload API, first ML and frontend work) followed
+informal branch-and-pull-request practice, with PRs #1–#7 merged by 5 Oct. This log therefore documents the defined process
+from 6 Oct onwards. No defect counts were recorded for reviews; the 10 defects in §7 were found by testing, not by review.
 
 Peer-review allocation: Kavyah → Eashaan, Eashaan → Jai, Jai → Gurpreet, Gurpreet → Kavyah.
 
@@ -186,6 +215,13 @@ Kavyah's ml-nlp push) and the resulting merge commits. This is a known limitatio
 | 2026-11-05 | Project demo and presentation (scheduled) | Eashaan, Gurpreet |
 
 ## 10. Measurement and analysis (MA)
+Measurement objectives and data sources:
+
+1. **Product quality** (classifier, risk rules, retrieval, answers): `tests/eval/run_eval.py` and the ML notebooks; results in `docs/EVALUATION.md` and `docs/ML_HANDOFF.md`.
+2. **Schedule** (planned against actual): Gantt dates against git commit dates, §4.
+3. **Defects** (found and fixed by testing): §7 and `docs/TESTING.md` §7.
+4. **Effort:** planned only, derived from the Gantt below. Actual hours were not collected.
+
 | Measure | Result |
 |---|---|
 | Legal-BERT 7-class accuracy / macro F1 (held-out, 7,738 clauses) | 0.9884 / 0.9812 |
@@ -223,3 +259,44 @@ Git with feature branches merged to `main` by pull request: `backend`, `frontend
 `feature/rag-preprocessing`, `rag-llm`, `ml-nlp`. Database changes are versioned as Supabase migrations 001–004.
 Git-ignored and shared via Google Drive: Legal-BERT model folders, `*.safetensors`, `*.pt`, the LEDGAR corpus and large
 processed CSVs. Also ignored: `.env`, `node_modules/`, virtual environments.
+
+**Baseline.** The submitted product is identified by commit `aba0f55` (14 Oct 2026, merge of PR #13). No git tag exists;
+creating `v1.0` on that commit is a recommended action. **Change control:** all changes enter `main` by pull request (from
+6 Oct), schema changes go through numbered migrations, and requirement changes are recorded in the §3 change log.
+**Known gaps:** backend dependencies are unpinned (RK11), no requirements baseline was kept, and no configuration audit was
+performed.
+
+## 12. Backend technical record (TS / PI)
+Scope: `backend/` (FastAPI, Python) with Supabase (PostgreSQL, pgvector, Storage). It calls the `clausenexa_rag` and
+`clausenexa_ml` packages in-process.
+
+| Method | Path | Purpose | Main errors |
+|---|---|---|---|
+| GET | `/`, `/health` | Liveness | none |
+| POST | `/contracts/upload` | Validate PDF/DOCX, store file, insert row with status `uploaded` | 400, 500 (stored file removed if the insert fails) |
+| GET | `/contracts`, `/contracts/{id}` | List (newest first) or fetch one contract | 404, 500 |
+| POST | `/contracts/{id}/process` | Download, extract, clean, chunk, embed (384-d), store chunks, set `processed` | 404, 500 (status `failed`) |
+| GET | `/contracts/{id}/analysis` | Clause classification and risk flags from the ML layer | 404 not processed, 503 model missing |
+| POST | `/contracts/{id}/ask` | Cited answer; question 1–1000 characters, `top_k` 1–10 | 404, 409 not processed, 503 |
+| DELETE | `/contracts/{id}` | Delete the stored file and all rows | 404, 500 |
+
+- **Status lifecycle:** `uploaded` → `processing` → `processed` or `failed`; `/ask` accepts only `processed` contracts.
+- **Data:** `contracts` and `contract_sections` (chunks, page numbers, `vector(384)`) are used by the API; `detected_clauses`, `risk_flags`, `questions`, `answers` and `source_references` are modelled in the schema but not written by the routes. RPC `match_contract_sections` returns the nearest chunks by cosine similarity for one contract.
+- **Design choices:** service-role key kept on the server (RLS on, no policies); Storage upload before the database insert, with cleanup on failure; RAG and ML imported lazily so the API starts without them (503 instead); models preloaded in a background thread; CORS limited to `http://localhost:3000`.
+- **Integration order:** schema → upload API → `/process` → embeddings → ML layer → `/ask` and `/analysis` → frontend wiring (`089e594`).
+
+## 13. Process-area self-assessment
+| Area | Status | Gap and action |
+|---|---|---|
+| REQM / RD | Partly met | No requirements baseline; change log added (§3) |
+| PP | Partly met | Plan written first, but dates slipped (§4) and the plan was not re-baselined |
+| PMC | Met | Gantt, Trello and git compared in §4 |
+| MA | Partly met | Effort is planned only; collect actual hours next time (§10) |
+| PPQA | Partly met | Reviews done locally with no defect data (§8) |
+| CM | Partly met | No tag, unpinned dependencies, no audit (§11) |
+| TS / PI | Met | §5, §12 |
+| VER | Partly met | No backend route tests (RK13) |
+| VAL | Partly met | Team walkthrough not written up (§4 note) |
+| RSKM / DAR | Met | Four open risks listed (RK10–RK13) |
+| OPD | Partly met | Process defined on 6 Oct; no tailoring guidelines |
+| Training (OT) | Not performed | Outside the scope of this project |
